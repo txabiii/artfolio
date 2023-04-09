@@ -2,6 +2,8 @@
   background-color: rgb(var(--blue-2-rgb));
   color: white;
   border-radius: var(--border-radius);
+  margin-top: calc(var(--side-margin)/2);
+  margin-bottom: calc(var(--side-margin)/2);
 }
 
 .projectDetails {
@@ -33,8 +35,8 @@
   .imgWrapper {
     margin-bottom: -5px;
     display: inline-block;
-    height: 350px;
-    width: 350px;
+    height: 400px;
+    width: 400px;
     position: relative;
   }
 }
@@ -76,6 +78,7 @@
   .projectImages {
     .imgWrapper {
       width: 100%;
+      height: calc(100vw - var(--side-margin)*2);
     }
   }
 }

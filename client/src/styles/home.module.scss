@@ -6,11 +6,11 @@
   padding-top: 3rem;
   padding-left: var(--side-margin);
   padding-right: var(--side-margin);
-  padding-bottom: calc(var(--border-radius) + 3rem);
+  padding-bottom: calc(var(--border-radius) + var(--side-margin));
 
   h1 {
-    font-size: 4rem;
-    line-height: 4rem;
+    font-size: 5rem;
+    line-height: 5rem;
     color: white;
   }
 
@@ -20,6 +20,7 @@
     font-size: 1.5rem;
     line-height: 1.5rem;
     width: 80%;
+    text-align: justify;
   }
 }
 
@@ -93,6 +94,9 @@
   }
   .heroButtonGroup {
     flex-direction: column;
+  }
+  .heroContainer {
+    p { width: auto ;}
   }
 }
 

@@ -15,7 +15,7 @@ export default function Footer() {
           <Image src='assets/logo.svg' alt='Website&apos;s logo' fill={true}/>
         </div>
       </div>
-      <p>2023 © Txabi Guerrero</p>
+      <p style={{opacity:'0.6'}}>2023 © Txabi Guerrero</p>
     </div>
   )
 }

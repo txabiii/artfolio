@@ -35,3 +35,17 @@
     transform: translate(-50%, -50%);
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .footer {
+    padding-top: 120px !important;
+    flex-direction: column;
+    gap: 20px;
+
+    .imgWrapper {
+      img {
+        top: -100% !important;
+      }
+    }
+  }
+}

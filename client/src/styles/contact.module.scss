@@ -45,6 +45,7 @@
     font-size: 1.25rem;
     border-radius: 1rem;
     border: none;
+    background-color: rgb(var(--white-2-rgb));
   }
 
   input {
@@ -93,5 +94,40 @@
   button {
     margin-top: 3rem;
     width: fit-content;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .contact {
+    h2 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+  }
+
+  .contactForm {
+    flex-direction: column;
+    gap: 5px !important;
+
+    .formLeft{
+      div:nth-of-type(2) {
+        margin-top: 5px !important;
+      }
+    }
+  }
+
+  .contactIntro {
+    flex-direction: column;
+
+    .contactText {
+      width: 100% !important;
+    }
+  }
+
+  .contactDetails {
+    margin-top: 20px;
+    img {
+      width: 20px;
+    }
   }
 }

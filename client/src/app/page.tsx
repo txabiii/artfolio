@@ -28,7 +28,7 @@ export default function Home() {
           <div className={styles.heroDetailsWrapper}>
             <div className={styles.heroDetails}>
               <h1>Hi, I&apos;m Txabi, a <span className={styles.highlight}>digital artist</span> and creator of cute and colorful art</h1>
-              <p>Subtext goes here explaining who I am, what I do, and what this website is all about. You can view me developer portfolio here.</p>
+              <p>I make cute digital arts and I showcase them here in my artfolio, check them out as you please! I have a soft spot for cartoon-ish style though I also try different styles as well.</p>
             </div>
             <div className={styles.heroButtonGroup}>
               <Button variant="primary" content="View works"/>

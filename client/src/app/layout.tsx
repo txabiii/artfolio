@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        { isVisible && <Navbar />}
+        { isVisible && <Navbar/>}
         {children}
       </body>
     </html>
