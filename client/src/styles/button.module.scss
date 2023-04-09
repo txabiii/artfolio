@@ -17,3 +17,15 @@
   background-color: white;
   box-shadow: 0px 5px 10px rgba(0,0,0,0.20);
 }
+
+.mini {
+  font-size: 1.2rem;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+@media only screen and (max-width: 360px) { 
+  .mini {
+    font-size: 1.5rem;
+  }
+}

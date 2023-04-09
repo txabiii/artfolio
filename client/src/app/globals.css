@@ -1,5 +1,5 @@
 /* My fonts */
-@import url(https://fonts.googleapis.com/css?family=Poppins);
+@import url(https://fonts.googleapis.com/css?family=Poppins:400,700);
 @import url(https://fonts.googleapis.com/css?family=Lato);
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab);
 
@@ -26,7 +26,7 @@
   --blue-2-rgb: 63, 74, 154;
   --blue-3-rgb: 13, 11, 71;
 
-  --side-margin: 5rem;
+  --side-margin: 3rem;
 }
 
 /* For potential use of dark mode
@@ -67,15 +67,31 @@ body {
   font-size: 12px;
 }
 
+/* Beyond the standard 1920vw*/
+
 @media only screen and (min-width: 1920px) { 
   html {
-    font-size: 18px;
+    font-size: 20px;
   }
 }
 
-@media only screen and (max-width: 480px) {
+/* Below the standard 1920vw*/
+
+@media only screen and (max-width: 1919px) { 
   html {
-    font-size: 8px;
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 1200px) { 
+  html {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 800px) { 
+  html {
+    font-size: 10px;
   }
 }
 
@@ -91,8 +107,14 @@ h1 {
   font-family: 'Roboto Slab', serif;
 }
 
+h2 {
+  font-size: 4em;
+  line-height: 4rem;
+}
+
 p {
   font-size: 1.35rem;
+  line-height: 1.75rem;
 }
 
 li {

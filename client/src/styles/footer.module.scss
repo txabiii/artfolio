@@ -1,0 +1,37 @@
+.footer {
+  background-color: rgb(var(--blue-3-rgb));
+  padding: var(--side-margin);
+  padding-top: calc(var(--side-margin) + var(--border-radius));
+  color: white;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: -30px;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+
+  p {
+    font-size: 1.6rem;
+  }
+
+  ul {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .imgWrapper {
+    position: relative;
+    width: 10rem;
+    height: 5rem;
+  }
+
+  .imgContainer {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

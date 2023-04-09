@@ -8,11 +8,13 @@
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 2;
 }
 
 .navbarTop {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .navbarRight {
@@ -33,7 +35,7 @@
 .mode {
   background-color: rgb(var(--blue-rgb));
   height: 30px;
-  line-height: 30px;
+  line-height: 27px;
   text-transform: uppercase;
   font-weight: 700;
   font-size: 1.3rem;
@@ -91,5 +93,11 @@
     border-radius: 15px;
     padding-left: 10px;
     height: 30px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .navbarLeft {
+    display: none;
   }
 }
