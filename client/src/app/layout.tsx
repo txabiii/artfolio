@@ -2,8 +2,8 @@
 
 import './globals.css'
 import Navbar from '@root/components/Navbar'
-
-import { useEffect, useState } from 'react';
+import Footer from '@root/components/Footer'
+import { NavbarContextProvider } from '@root/context/NavbarContextProvider'
 
 export const metadata = {
   title: 'Txabi\'s Artfolio',
@@ -15,26 +15,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(()=>{
-    function handleScroll() {
-      setIsVisible(window.scrollY > 100)
-    }
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
   return (
-    <html lang="en">
-      <body>
-        { isVisible && <Navbar/>}
-        {children}
-      </body>
-    </html>
+    <NavbarContextProvider>
+      <html lang="en">
+        <body>
+          <Navbar />
+          {children}
+          <Footer />
+        </body>
+      </html>
+    </NavbarContextProvider>
   )
 }

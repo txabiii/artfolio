@@ -1,20 +1,36 @@
+'use client';
+
 import styles from '../styles/home.module.scss'
 
 import Link from 'next/link'
 import Image from 'next/image'
 
+import { useRef } from 'react'
+
 import Button from '@root/components/Button'
 import ProjectPreview from '@root/components/ProjectPreview'
 import Contact from '@root/components/Contact'
-import Footer from '@root/components/Footer'
 
 import heroImage from '@root/assets/images/Hero image.png'
 
 export default function Home() {
+  /** Scroll to contact */
+  const contactRef = useRef<HTMLDivElement>(null);
 
+  const scrollToContact = () => {
+    if(contactRef.current) contactRef.current.scrollIntoView({ behavior: 'smooth'});
+  }
+
+  /** Scroll to projects */
+
+  const projectsRef = useRef<HTMLDivElement>(null);
+
+  const scrollToProjects = () => {
+    if(projectsRef.current) projectsRef.current.scrollIntoView({ behavior: 'smooth'});
+  }
   return (
     <>
-    {/* Hero section */}
+      {/* Hero section */}
       <main className={styles.heroContainer}>
         <div className={styles.initialNavbar}>
           <Link href={''}><p><u>Artfolio</u></p></Link>
@@ -31,21 +47,21 @@ export default function Home() {
               <p>I make cute digital arts and I showcase them here in my artfolio, check them out as you please! I have a soft spot for cartoon-ish style though I also try different styles as well.</p>
             </div>
             <div className={styles.heroButtonGroup}>
-              <Button variant="primary" content="View works"/>
-              <Button variant="secondary" content="Contact me" />
+              <Button variant="primary" content="View works" click={scrollToProjects}/>
+              <Button variant="secondary" content="Contact me" click={scrollToContact}/>
             </div>
           </div>
         </div>
       </main>
-    {/* Project previews Section */}
-      <section className={styles.projectPreview}>
+      {/* Project previews Section */}
+      <section className={styles.projectPreview} ref={projectsRef}>
         <ProjectPreview/>
         <ProjectPreview/>
       </section>
-    {/* Contact Section */}
-      <Contact />
-    {/* Footer */}
-      <Footer />
+      {/* Contact Section */}
+      <section ref={contactRef}>
+        <Contact />
+      </section>
     </>
   )
 }

@@ -1,9 +1,10 @@
 import cx from 'classnames'
 import styles from '../styles/button.module.scss'
 
-export default function Button ({ variant = 'primary', content = 'Button', mini }: any): JSX.Element {
+export default function Button ({ variant = 'primary', content = 'Button', mini = false, click }: any): JSX.Element {
   return(
-    <button className={
+    <button onClick={click}
+      className={
       cx(styles.general,
         {[styles.primary] : variant === 'primary'},
         {[styles.secondary] : variant === 'secondary'},

@@ -1,0 +1,108 @@
+.background {
+  position: fixed;
+  top: 0;
+  background-color: rgba(0,0,0,0.6);
+  height: 100vh;
+  width: 100vw;
+  z-index: 2;
+  padding-right: var(--side-margin);
+  padding-left: var(--side-margin);
+}
+
+.popup {
+  border-radius: calc(var(--border-radius)/2);
+  background-color: white;
+  padding: 30px;
+  transition: all 200ms ease-out;
+  color: rgb(var(--blue-3-rgb));
+
+  visibility: hidden;
+  transform: translateY(-100%);
+
+  h3 {
+    width: 85%;
+    margin-bottom: 20px;
+  }
+
+  .popupHeader {
+    position: relative;
+  }
+
+  .closePopup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    background-color: transparent;
+    font-size: 2rem;
+  }
+
+  .contactForm {
+    input, textarea {
+      width: 100%;
+      font-size: 1.25rem;
+      border-radius: 1rem;
+      border: none;
+      background-color: rgb(var(--white-2-rgb));
+    }
+  
+    input {
+      height: 3rem;
+      padding: 0px 10px;
+    }
+
+    textarea {
+      padding: 10px;
+      height: 10rem;
+      resize: vertical;
+    }
+
+    .formLeft {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+
+      div { flex: 1;}
+    }
+
+    button {
+      width: -webkit-fill-available;
+      margin-top: 20px;
+    }
+  }
+}
+
+.show {
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.project {
+  h4:nth-child(2){
+    margin-bottom: 10px;
+  }
+
+  h4 {
+  padding: 10px;
+  background-color: rgb(var(--white-2-rgb));
+  color: rgb(var(--blue-2-rgb));
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+  }
+
+  h4:hover {
+    transform: scale(1.05);
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .popup {
+    width: 40rem;
+    margin-left: auto;
+  }
+
+  .project {
+    width: 30rem !important;
+  }
+}

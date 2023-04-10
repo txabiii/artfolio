@@ -1,0 +1,62 @@
+.projectDetails {
+  background-color: rgb(var(--blue-2-rgb));
+  color: white;
+  padding: var(--side-margin);
+  padding-top: calc(60px + var(--side-margin));
+  border-radius: 0px 0px var(--border-radius) var(--border-radius);
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  h1{
+    margin-bottom: 2rem;
+  }
+}
+
+.imagesContainer {
+  background-color: rgb(var(--white-rgb));
+  border-radius: 0px 0px var(--border-radius) var(--border-radius);
+}
+
+.projectImages {
+  padding: var(--side-margin);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.imgWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  aspect-ratio: 1 / 1;
+  background-color: #f2f2f2;
+
+  img {
+    object-fit: cover;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .imgWrapper {
+    width: calc((100vw - var(--side-margin)*2 - 10px)/3);
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .projectImages {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .imgWrapper {
+    width: calc((100vw - var(--side-margin)*2 - 10px)/2);
+    height: auto;
+  }
+}
