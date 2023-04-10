@@ -4,7 +4,6 @@ import styles from '../../../styles/projectPage.module.scss'
 import { NavbarContext } from '../../../context/NavbarContextProvider';
 import { useContext, useEffect } from 'react';
 import Image from 'next/image';
-import Contact from '@root/components/Contact';
 
 export default function Project({params}: {params: {projectName: string}}){
   const projectTitle = params.projectName;

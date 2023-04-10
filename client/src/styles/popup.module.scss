@@ -17,7 +17,7 @@
   color: rgb(var(--blue-3-rgb));
 
   visibility: hidden;
-  transform: translateY(-100%);
+  transform: translateY(-100%) scale(0.8);
 
   h3 {
     width: 85%;
@@ -74,7 +74,7 @@
 
 .show {
   visibility: visible;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .project {
