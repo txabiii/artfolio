@@ -40,15 +40,6 @@ export default function ImageView({ show, setShow, id }: any): JSX.Element {
     setShow(false)
   });
 
-  // useEffect(()=>{
-  //   async function fetchData() {
-  //     const data = await getImage(id);
-  //     setImageData(data);
-  //     setShow(true);
-  //   };
-  //   if(id) fetchData();
-  // },[id])
-
   return(
     <>
       {show && <div className={cx(styles.background, {[styles.fadeIn] : render})}>
