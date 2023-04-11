@@ -6,6 +6,7 @@ import Image from 'next/image'
 import ImageView from './ImageView'
 import { useState, useEffect } from 'react'
 import { getImagesByProject } from '@root/api/imagesClient';
+import Link from 'next/link';
 
 export default function ProjectPreview({ projectData } : any): JSX.Element {
   /** Setup images */
@@ -36,7 +37,9 @@ export default function ProjectPreview({ projectData } : any): JSX.Element {
         <div className={styles.projectDetails}>
           <div className={styles.projectHeader}>          
             <h2>{ projectData.project_name }</h2>
-            <Button content="View project" variant="secondary" mini={true} />
+            <Link href={'/project/'+projectData.project_id}>
+              <Button content="View project" variant="secondary" mini={true} />
+            </Link>
           </div>
           <p>{ projectData.description }</p>
         </div>
