@@ -78,12 +78,13 @@
 }
 
 .project {
-  h4:nth-child(2){
+  div:nth-child(2){
     margin-bottom: 10px;
+    margin-top: 1.5rem;
   }
 
   h4 {
-  padding: 10px;
+  padding: 1.5rem;
   background-color: rgb(var(--white-2-rgb));
   color: rgb(var(--blue-2-rgb));
   border-radius: 10px;

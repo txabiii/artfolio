@@ -3,11 +3,11 @@ const router = express.Router();
 
 const sql = require('../db');
 
-// Select all projects
+// Select image by image_id
 
-router.get('/', async (req, res) => {
+router.get('/image/:id', async (req, res) => {
   try {
-    const result = await sql`SELECT * FROM projects`;
+    const result = await sql`SELECT * FROM images WHERE image_id = ${req.params.id}`;
     res.send(result);
   } catch (error) {
     console.error(error);
@@ -15,11 +15,12 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Select project by project_id
+// Select images by project_id
 
-router.get('/:id', async (req, res) => {
+router.get('/:id/:max?', async (req, res) => {
   try {
-    const result = await sql`SELECT * FROM projects WHERE project_id = ${req.params.id}`;
+    const limit = req.params.max || 10000;
+    const result = await sql`SELECT * FROM images WHERE project_id = ${req.params.id} LIMIT ${limit}`;
     res.send(result);
   } catch (error) {
     console.error(error);

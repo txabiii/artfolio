@@ -33,6 +33,7 @@
   scrollbar-width: none;
 
   .imgWrapper {
+    cursor: pointer;
     margin-bottom: -5px;
     display: inline-block;
     height: 400px;
@@ -60,7 +61,7 @@
       text-overflow: ellipsis;
       overflow-x: clip;
       max-width: 60%;
-      margin-right: 0;
+      margin-right: 0px !important;
     }
   }
 }

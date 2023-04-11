@@ -5,7 +5,8 @@ import styles from '../styles/home.module.scss'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { useRef } from 'react'
+import { useRef, useState, useEffect, useContext } from 'react'
+import { NavbarContext } from '../context/NavbarContextProvider';
 
 import Button from '@root/components/Button'
 import ProjectPreview from '@root/components/ProjectPreview'
@@ -13,7 +14,17 @@ import Contact from '@root/components/Contact'
 
 import heroImage from '@root/assets/images/Hero image.png'
 
+import { getAllProjects } from '@root/api/projectsClient';
+
 export default function Home() {
+  /** Navbar context */
+  const { isAlwaysVisible, setIsAlwaysVisible } = useContext(NavbarContext);
+
+  useEffect(()=>{
+    setIsAlwaysVisible(false)
+  }, [])
+
+
   /** Scroll to contact */
   const contactRef = useRef<HTMLDivElement>(null);
 
@@ -22,12 +33,23 @@ export default function Home() {
   }
 
   /** Scroll to projects */
-
   const projectsRef = useRef<HTMLDivElement>(null);
 
   const scrollToProjects = () => {
     if(projectsRef.current) projectsRef.current.scrollIntoView({ behavior: 'smooth'});
   }
+
+  /** Get projects */
+  const [projects, setProjects] = useState([]);
+
+  useEffect(()=>{
+    async function fetchData() {
+      const data = await getAllProjects();
+      setProjects(data);
+    }
+    fetchData();
+  }, [])
+
   return (
     <>
       {/* Hero section */}
@@ -55,8 +77,11 @@ export default function Home() {
       </main>
       {/* Project previews Section */}
       <section className={styles.projectPreview} ref={projectsRef}>
-        <ProjectPreview/>
-        <ProjectPreview/>
+        {projects.map((project, index) => (
+          <ProjectPreview key={index} projectData={project}/>
+        ))}
+        {/* <ProjectPreview/>
+        <ProjectPreview/> */}
       </section>
       {/* Contact Section */}
       <section ref={contactRef}>

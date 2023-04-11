@@ -8,6 +8,9 @@
   z-index: 4;
   padding-right: var(--side-margin);
   padding-left: var(--side-margin);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 300ms ease-in;
 }
 
 .popup {
@@ -27,6 +30,7 @@
 
   .closePopup {
     position: absolute;
+    z-index: 1;
     top: 2rem;
     right: 2rem;
     border: none;
@@ -35,6 +39,7 @@
   }
 
   .imgWrapper {
+    position: relative;
     width: 100%;
     aspect-ratio: 1/1;
     background-color: pink;
@@ -69,9 +74,15 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
+.fadeIn {
+  visibility: visible;
+  opacity: 1;
+}
+
 @media only screen and (max-width: 900px) {
   .popup {
     width: 48rem;
+    border-radius: calc(var(--border-radius)/2);
   }
 }
 

@@ -12,15 +12,16 @@ import Logo from 'public/assets/logo.svg'
 
 import { NavbarContext } from '@root/context/NavbarContextProvider';
 
+import { getAllProjects } from '@root/api/projectsClient';
+
 export default function Navbar (): JSX.Element {
+  const navbar = useRef<HTMLDivElement>(null);
+
   /** Context */
   const { mode, isAlwaysVisible } = useContext(NavbarContext);
 
-  const navbar = useRef<HTMLDivElement>(null);
+  /** Mobile's hidden menu visibility */
 
-  /**
-   * Mobile's hidden menu visibility
-   */
   const hiddenMenu = useRef<HTMLDivElement>(null);
 
   const [isVisible, setIsVisible] = useState(false);
@@ -46,9 +47,7 @@ export default function Navbar (): JSX.Element {
     setIsContactVisible(!isContactVisible);
   }
 
-  /**
-   * Contact and Project popups
-   */
+  /** Contact and Project popups */
 
   const [isContactVisible, setIsContactVisible] = useState(false);
   const [isProjectVisible, setIsProjectVisible] = useState(false);
@@ -69,9 +68,7 @@ export default function Navbar (): JSX.Element {
     setIsProjectVisible(!isProjectVisible)
   }
 
-  /**
-   * Navbar's visibility
-   */
+  /** Navbar's visibiNlity */
 
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
 
@@ -91,10 +88,21 @@ export default function Navbar (): JSX.Element {
     }
   }, [isAlwaysVisible])
 
+  /** Get projects */
+  const [projects, setProjects] = useState([]);
+
+  useEffect(()=>{
+    async function fetchData() {
+      const data = await getAllProjects();
+      setProjects(data);
+    }
+    fetchData();
+  }, [])
+
   return(
     <>
       { isNavbarVisible && <div>
-        <PorjectPopup offset={navbarHeight} show={isProjectVisible} setShow={setIsProjectVisible}/>
+        <PorjectPopup projects={projects} offset={navbarHeight} show={isProjectVisible} setShow={setIsProjectVisible}/>
         <ContactPopup offset={navbarHeight} show={isContactVisible} setShow={setIsContactVisible}/>
         <div className={styles.navbar} ref={navbar}>
           <div className={styles.navbarTop}>        
