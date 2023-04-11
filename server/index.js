@@ -6,8 +6,7 @@ const cors = require('cors');
 const app = express()
 app.use(express.json());
 
-app.use(cors());
-const allowedOrigins = ['https://artfolio-wiky.vercel.app/']
+const allowedOrigins = ['https://artfolio-wiky.vercel.app','https://artfolio-git-deployment-txabiii.vercel.app']
 app.use(cors({
   origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
