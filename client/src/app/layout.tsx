@@ -6,8 +6,8 @@ import Footer from '@root/components/Footer'
 import { NavbarContextProvider } from '@root/context/NavbarContextProvider'
 
 export const metadata = {
-  title: 'Txabi\'s Artfolio',
-  description: 'A portfolio',
+  title: 'Artfolio',
+  description: 'An art portfolio',
 }
 
 export default function RootLayout({
