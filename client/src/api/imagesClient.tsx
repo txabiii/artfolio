@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL = 'https://artfolio-backend-nm060l6cv-txabiii.vercel.app';
 
 export async function getImagesByProject(id: number, limit?: number) {
   try {
