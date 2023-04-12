@@ -11,6 +11,7 @@ import { NavbarContext } from '../context/NavbarContextProvider';
 import Button from '@root/components/Button'
 import ProjectPreview from '@root/components/ProjectPreview'
 import Contact from '@root/components/Contact'
+import ProjectPreviewSkeleton from '@root/components/ProjectPreviewSkeleton';
 
 import heroImage from '@root/assets/images/Hero image.png'
 
@@ -41,11 +42,13 @@ export default function Home() {
 
   /** Get projects */
   const [projects, setProjects] = useState([]);
+  const [projectHasNotLoaded, setProjectHasNotLoaded] = useState(true)
 
   useEffect(()=>{
     async function fetchData() {
       const data = await getAllProjects();
       setProjects(data);
+      setProjectHasNotLoaded(false);
     }
     fetchData();
   }, [])
@@ -76,6 +79,7 @@ export default function Home() {
         </div>
       </main>
       {/* Project previews Section */}
+      { projectHasNotLoaded && <ProjectPreviewSkeleton />}
       <section className={styles.projectPreview} ref={projectsRef}>
         {projects.map((project, index) => (
           <ProjectPreview key={index} projectData={project}/>

@@ -1,0 +1,50 @@
+@import 'mixins';
+
+.container {
+  padding: var(--side-margin);
+  padding-bottom: 0;
+
+  div:nth-child(1) {
+    border-radius: var(--border-radius) var(--border-radius) 0px 0px;
+    @include shimmer(auto, #dbdbdb, #edeef1, 0s);
+    height: 14rem;
+  }
+
+  div:nth-child(2) {
+    border-radius: 0px 0px var(--border-radius) var(--border-radius);
+    @include shimmer(auto, #ededed, #ffffff, 0.1s);
+    height: 25rem;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .container {
+    div:nth-child(2) {
+      border-radius: 0px 0px var(--border-radius) var(--border-radius);
+      height: calc((100vw - var(--side-margin)*2 - 10px));
+    }
+  }
+}
+
+.shine {
+  background: #dbdbdb;
+  background-image: linear-gradient(45deg, #dbdbdb 0%, #dbdbdb 10%, #edeef1 20%, #dbdbdb 40%, #dbdbdb 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  
+  animation-duration: 1500ms;
+  animation-fill-mode: forwards; 
+  animation-iteration-count: infinite;
+  animation-name: placeholderShimmer;
+  animation-timing-function: linear;
+ }
+
+@keyframes placeholderShimmer {
+  0% {
+    background-position: -800px 0;
+  }
+  
+  100% {
+    background-position: 800px 0; 
+  }
+}

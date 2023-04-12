@@ -13,6 +13,7 @@ import Logo from 'public/assets/logo.svg'
 import { NavbarContext } from '@root/context/NavbarContextProvider';
 
 import { getAllProjects } from '@root/api/projectsClient';
+import Link from 'next/link';
 
 export default function Navbar (): JSX.Element {
   const navbar = useRef<HTMLDivElement>(null);
@@ -108,7 +109,9 @@ export default function Navbar (): JSX.Element {
           <div className={styles.navbarTop}>        
             <div className={styles.navbarRight}>
               <div className={styles.imgWrapper}>        
-                <Image src={Logo} alt='Website&apos;s logo' fill={true}/>
+                <Link href='/'>
+                  <Image src={Logo} alt='Website&apos;s logo' fill={true}/>
+                </Link>
               </div>
               <div className={styles.mode}>{ mode }</div>
             </div>

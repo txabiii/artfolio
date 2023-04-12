@@ -53,6 +53,7 @@
 @media only screen and (max-width: 500px) {
   .projectImages {
     grid-template-columns: repeat(2, 1fr);
+    padding-bottom: calc(var(--side-margin)*2);
   }
 
   .imgWrapper {
