@@ -1,12 +1,13 @@
 @import 'mixins';
 
 .container {
+  width: calc(100vw);
   padding: var(--side-margin);
   padding-bottom: 0;
 
   div:nth-child(1) {
     border-radius: var(--border-radius) var(--border-radius) 0px 0px;
-    @include shimmer(auto, #dbdbdb, #edeef1, 0s);
+    @include shimmer(calc(100vw + 1px), #dbdbdb, #edeef1, 0s);
     height: 14rem;
   }
 

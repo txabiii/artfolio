@@ -6,6 +6,7 @@ import phone from 'public/assets/icons/phone.svg'
 import work from 'public/assets/icons/work.svg'
 import Image from 'next/image'
 import Button from './Button';
+import { sendMessage } from '@root/api/messagesClient';
 
 import { useState } from 'react'
 
@@ -16,7 +17,13 @@ export default function Contact () {
 
   function handleSubmit(event:any) {
     event.preventDefault();
-    // handle form submission
+    sendMessage(name, email, message)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   return(

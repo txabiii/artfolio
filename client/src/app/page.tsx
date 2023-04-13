@@ -9,6 +9,7 @@ import { useRef, useState, useEffect, useContext } from 'react'
 import { NavbarContext } from '../context/NavbarContextProvider';
 
 import Button from '@root/components/Button'
+import Alert from '@root/components/Alert';
 import ProjectPreview from '@root/components/ProjectPreview'
 import Contact from '@root/components/Contact'
 import ProjectPreviewSkeleton from '@root/components/ProjectPreviewSkeleton';
@@ -55,6 +56,7 @@ export default function Home() {
 
   return (
     <>
+      {/* <Alert /> */}
       {/* Hero section */}
       <main className={styles.heroContainer}>
         <div className={styles.initialNavbar}>

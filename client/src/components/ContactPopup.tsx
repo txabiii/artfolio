@@ -3,23 +3,26 @@ import Button from './Button'
 import { useEffect, useState, useRef } from 'react';
 import cx from 'classnames'
 import useEscapeKey from '@root/utils/useEscapeKey';
+import { sendMessage } from '@root/api/messagesClient';
 
 export default function ContactPopup({ offset, mode = 'artfolio', show = false, setShow }: any): JSX.Element {
-  /**
-   * Form Submission
-   */
+  /** Form Submission */
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
   function handleSubmit(event:any) {
     event.preventDefault();
-    // handle form submission
+    sendMessage(name, email, message)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
-  /**
-   * Popup setup
-   */
+  /** Popup setup */
 
   const popup = useRef<HTMLDivElement>(null)
 
@@ -29,9 +32,7 @@ export default function ContactPopup({ offset, mode = 'artfolio', show = false, 
     }
   }, [offset,show])
 
-  /**
-   * Popup animation
-   */
+  /** Popup animation */
 
   const [render, setRender] = useState(false);
 
@@ -43,9 +44,7 @@ export default function ContactPopup({ offset, mode = 'artfolio', show = false, 
     }
   }, [show])
 
-  /**
-   * Close popup on escape
-   */
+  /** Close popup on escape */
   useEscapeKey(()=>{
     setShow(false);
   })

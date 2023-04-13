@@ -14,8 +14,12 @@
   @media screen and (max-width: 768px) {
     animation-duration: 3000ms;
   }
-}
-
-@keyframes placeholderShimmer {
-
+  
+  @keyframes placeholderShimmer {
+    0% {
+      background-position: $width 0;
+    } 100% {
+      background-position: 0 0;
+    }
+  }
 }

@@ -1,0 +1,29 @@
+.alert {
+  background-color: rgb(var(--red-rgb));
+  color: rgb(var(--red-rgb));
+  position: fixed;
+  z-index: 4;
+  bottom: var(--side-margin);
+  left: var(--side-margin);
+  padding: var(--side-margin);
+  width: calc(100vw - var(--side-margin)*2);
+  border-radius: 20px;
+
+  h4{
+    color: inherit;
+    filter: brightness(0.25) hue-rotate(-17deg);
+  }
+  
+  p{
+    color: inherit;
+    filter: brightness(0.35) hue-rotate(-17deg)
+  }
+
+  .closeAlert {
+    position: absolute;
+    right: var(--side-margin);
+    background-color: transparent;
+    border: none;
+    color: inherit;
+  }
+}

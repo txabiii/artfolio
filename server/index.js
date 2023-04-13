@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express()
 app.use(express.json());
 
-const allowedOrigins = ['localhost:3000']
+const allowedOrigins = ['http://localhost:3000']
 app.use(cors({
   origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -24,6 +24,9 @@ app.use('/projects', projects)
 
 const images = require('./api/images');
 app.use('/images', images)
+
+const messages = require('./api/messages');
+app.use('/messages', messages)
 
 const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`Server is listening on port ${port}.`))

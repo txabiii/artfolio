@@ -1,5 +1,4 @@
 .heroContainer {
-  height: calc(100svh + var(--border-radius));
   border-radius: 0px 0px var(--border-radius) var(--border-radius);
   background-color: rgb(var(--blue-2-rgb));
 
@@ -35,7 +34,6 @@
 }
 
 .hero {
-  height: calc(100% - var(--border-radius) - var(--side-margin));
   justify-content: space-between;
   display: flex;
   flex-direction: column;
@@ -66,18 +64,18 @@
 }
 
 .heroImages {
+  min-height: 30rem;
   position: relative;
   flex: 1;
-  padding-top: 30px ;
+  margin-top: 3rem ;
   display: flex;
   justify-content: center;
   align-items: center;
 
   img {
     position: absolute;
-    border-radius: 3rem;
-    width: auto;
-    height: 100%;
+    width: 100%;
+    height: auto;
   }
 }
 
@@ -88,7 +86,7 @@
   gap: var(--side-margin);
 }
 
-@media only screen and (max-width: 480px) { 
+@media only screen and (max-width: 500px) { 
   .heroDetails {
     justify-content: space-between;
   }
@@ -100,8 +98,13 @@
   }
 }
 
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 768px) {
+  .heroContainer {
+    height: calc(100svh + var(--border-radius));
+  }
+
   .hero {
+    height: calc(100% - var(--border-radius) - var(--side-margin));
     flex-direction: row-reverse;
 
     .heroDetailsWrapper {
@@ -113,8 +116,8 @@
       flex: 2;
 
       img {
-        width: 100%;
         height: auto;
+        width: 100%;
       }
     }
   }
