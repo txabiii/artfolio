@@ -1,4 +1,4 @@
-const BASE_URL = 'https://artfolio-backend-nm060l6cv-txabiii.vercel.app';
+const BASE_URL = 'https://artfolio-backend.vercel.app';
 
 export async function sendMessage(name: string, email: string, message: string) {
   const data = {
