@@ -22,9 +22,9 @@ import { useSearchParams } from 'next/navigation';
 
 export default function Home() {
   /** Get url parameters */
-  // const searchParams = useSearchParams();
-  // const [isImageViewVisible, setIsImageViewVisible] = useState(false);
-  // const [imageId, setImageId] = useState(0);
+  const searchParams = useSearchParams();
+  const [isImageViewVisible, setIsImageViewVisible] = useState(false);
+  const [imageId, setImageId] = useState(0);
 
   // useEffect(()=>{
   //   const urlId = searchParams.get('image_id');
