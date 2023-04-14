@@ -4,23 +4,36 @@ import { useEffect, useState, useRef } from 'react';
 import cx from 'classnames'
 import useEscapeKey from '@root/utils/useEscapeKey';
 import { sendMessage } from '@root/api/messagesClient';
+import Alert from './Alert';
 
 export default function ContactPopup({ offset, mode = 'artfolio', show = false, setShow }: any): JSX.Element {
-  /** Form Submission */
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+
+  const [title, setTitle] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
+  const [variant, setVariant] = useState('');
 
   function handleSubmit(event:any) {
     event.preventDefault();
     sendMessage(name, email, message)
     .then((response) => {
-      console.log(response);
+      setShowAlert(true);
+      setTitle(response.status);
+      setAlertMessage(response.message);
+
+      if(response.status === 'success'){
+        setVariant('green')
+      } else  setVariant('red');
     })
     .catch((error) => {
       console.log(error);
     });
   }
+
+  /** Alert component */
+  const [showAlert, setShowAlert] = useState(false);
 
   /** Popup setup */
 
@@ -51,6 +64,7 @@ export default function ContactPopup({ offset, mode = 'artfolio', show = false, 
 
   return (
     <>
+      { showAlert && <Alert title={title} message={alertMessage} variant={variant} show={showAlert} setShow={setShowAlert}/>}
       { show && <div className={styles.background}>
         <div ref={popup} className={cx(styles.popup, {[styles.show] : render})}>
           <div className={styles.popupHeader}>

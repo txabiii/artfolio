@@ -1,13 +1,16 @@
 'use client';
 
 import styles from '../../../styles/projectPage.module.scss'
+import cx from 'classnames'
 import { NavbarContext } from '../../../context/NavbarContextProvider';
 import { useContext, useEffect, useState } from 'react';
+
 import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import { getProjectById } from '@root/api/projectsClient';
 import { getImagesByProject } from '@root/api/imagesClient';
-import { useRouter } from 'next/navigation';
-import cx from 'classnames'
+
 import ImageView from '../../../components/ImageView'
 
 interface ProjectData {
@@ -24,7 +27,19 @@ interface ImageData {
 }
 
 export default function Project({params}: {params: {projectId: number}}){
+  /** Get url parameters */
+  const searchParams = useSearchParams();
+
+  useEffect(()=>{
+    const urlId = searchParams.get('image_id');
+    if(urlId) {
+      setImageId(parseInt(urlId));
+      setIsImageViewVisible(true);
+    }
+  }, [])
+
   const router = useRouter();
+
   const projectId = params.projectId;
   const [projectData, setProjectData] = useState<ProjectData>({ project_id: 0, project_name: '', description: ''});
 
@@ -65,7 +80,14 @@ export default function Project({params}: {params: {projectId: number}}){
   function hanndleImageClick(id: number){
     setImageId(id);
     setIsImageViewVisible(true);
+    router.push(`/project/${projectData.project_id}?image_id=${id}`)
   }
+
+  /** When the ImageView is closed */
+  useEffect(()=>{
+    if(images.length === 1) return;
+    if(!isImageViewVisible) router.push(`/project/${projectId}`)
+  }, [isImageViewVisible])
 
   /** If atleast one image has loaded */
   const [imageHasNotLoaded, setImageHasNotLoaded] = useState(true);
