@@ -38,18 +38,11 @@ export default function ProjectPreview({ projectData } : any): JSX.Element {
   function hanndleImageClick(id: number){
     setImageId(id);
     setIsImageViewVisible(true);
-    router.push(`/?image_id=${id}`)
-  }
-
-  /** When the ImageView is closed */
-  const goBack = () => {
-    console.log('runs')
-    router.push('/');
   }
 
   return (
     <>
-      { isImageViewVisible && <ImageView id={imageId} show={isImageViewVisible} setShow={setIsImageViewVisible} goBack={goBack}/>}
+      { isImageViewVisible && <ImageView id={imageId} show={isImageViewVisible} setShow={setIsImageViewVisible}/>}
       <div className={styles.projectPreview}>
         <div className={styles.projectDetails}>
           <div className={styles.projectHeader}>          
