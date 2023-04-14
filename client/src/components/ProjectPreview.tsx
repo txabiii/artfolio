@@ -12,7 +12,6 @@ import dynamic from 'next/dynamic'
 import { useState, useEffect } from 'react'
 
 import { getImagesByProject } from '@root/api/imagesClient';
-import Link from 'next/link';
 
 const ImageView = dynamic(() => import('./ImageView'), {
   ssr: false,
