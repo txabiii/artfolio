@@ -1,14 +1,26 @@
 'use client';
 
 import styles from '../styles/projectPreview.module.scss'
+
 import Button from '../components/Button'
+
 import Image from 'next/image'
-import ImageView from './ImageView'
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import dynamic from 'next/dynamic'
+
 import { useState, useEffect } from 'react'
+
 import { getImagesByProject } from '@root/api/imagesClient';
 import Link from 'next/link';
 
+const ImageView = dynamic(() => import('./ImageView'), {
+  ssr: false,
+})
+
 export default function ProjectPreview({ projectData } : any): JSX.Element {
+  const router = useRouter();
+
   /** Setup images */
   const [images, setImages] = useState([]);
 
@@ -21,18 +33,23 @@ export default function ProjectPreview({ projectData } : any): JSX.Element {
   }, [])
 
   /** For the image popup */
-
   const [isImageViewVisible, setIsImageViewVisible] = useState(false);
   const [imageId, setImageId] = useState(0);
 
   function hanndleImageClick(id: number){
     setImageId(id);
     setIsImageViewVisible(true);
+    router.push(`/?image_id=${id}`)
   }
+
+  /** When the ImageView is closed   */
+  useEffect(()=>{
+    if(!isImageViewVisible) router.push('/')
+  }, [isImageViewVisible])
 
   return (
     <>
-      <ImageView id={imageId} show={isImageViewVisible} setShow={setIsImageViewVisible} />
+      { isImageViewVisible && <ImageView id={imageId} show={isImageViewVisible} setShow={setIsImageViewVisible} />}
       <div className={styles.projectPreview}>
         <div className={styles.projectDetails}>
           <div className={styles.projectHeader}>          

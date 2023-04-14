@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .projectPreview {
   background-color: rgb(var(--blue-2-rgb));
   color: white;
@@ -23,6 +25,7 @@
 }
 
 .projectImages {
+  @include shimmer(calc(0px - 100vw - var(--side-margin)*2), #ededed, #ffffff, 0.1s);
   font-size: 0;
   border-radius: 0px 0px var(--border-radius) var(--border-radius);
 
@@ -31,6 +34,9 @@
   overflow-y: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  
+  height: 400px;
+  background-color: #dbdbdb;
 
   .imgWrapper {
     cursor: pointer;
@@ -48,6 +54,8 @@
 
 @media only screen and (min-width: 1600px) {
   .projectImages {
+    height: 500px;
+    
     .imgWrapper {
       width: 500px;
       height: 500px;
@@ -77,6 +85,8 @@
   }
 
   .projectImages {
+    height: calc(100vw - var(--side-margin)*2);
+
     .imgWrapper {
       width: 100%;
       height: calc(100vw - var(--side-margin)*2);

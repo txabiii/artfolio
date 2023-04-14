@@ -11,7 +11,6 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
-
 app.use(express.json());
 
 /** Simple greeting */
@@ -25,6 +24,9 @@ app.use('/projects', projects)
 
 const images = require('./api/images');
 app.use('/images', images)
+
+const messages = require('./api/messages');
+app.use('/messages', messages)
 
 const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`Server is listening on port ${port}.`))

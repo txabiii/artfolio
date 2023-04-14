@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .projectDetails {
   background-color: rgb(var(--blue-2-rgb));
   color: white;
@@ -30,11 +32,13 @@
 }
 
 .imgWrapper {
+  cursor: pointer;
+  --width: 400px;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 400px;
+  height: var(--width);
   aspect-ratio: 1 / 1;
   background-color: #f2f2f2;
 
@@ -43,20 +47,29 @@
   }
 }
 
+.imgSkeleton {
+  @include shimmer(calc(0px - var(--width)), #dbdbdb, #edeef1, 0s);
+}
+
 @media only screen and (max-width: 1000px) {
   .imgWrapper {
-    width: calc((100vw - var(--side-margin)*2 - 10px)/3);
-    height: auto;
+    --width: calc((100vw - var(--side-margin)*2 - 10px)/3);
+    height: (--width);
   }
 }
 
 @media only screen and (max-width: 500px) {
+  .imgSkeleton:first-of-type {
+    display: none;
+  }
+
   .projectImages {
     grid-template-columns: repeat(2, 1fr);
+    padding-bottom: calc(var(--side-margin)*2);
   }
 
   .imgWrapper {
-    width: calc((100vw - var(--side-margin)*2 - 10px)/2);
-    height: auto;
+    --width: calc((100vw - var(--side-margin)*2 - 10px)/2);
+    height: (--width);
   }
 }

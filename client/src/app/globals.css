@@ -26,6 +26,11 @@
   --blue-2-rgb: 63, 74, 154;
   --blue-3-rgb: 13, 11, 71;
 
+  --red-rgb: 255, 163, 143;
+  --yellow-rgb: 249, 248, 113;
+  --green-rgb: 155, 222, 126;
+  --gray-rgb: 222, 222, 222;
+
   --side-margin: 3rem;
 }
 
@@ -91,13 +96,13 @@ body {
 
 @media only screen and (max-width: 800px) { 
   html {
-    font-size: 10px;
+    font-size: 11px;
   }
 }
 
 @media only screen and (max-width: 360px) { 
   html {
-    font-size: 8px;
+    font-size: 10px;
   }
 }
 
@@ -122,9 +127,12 @@ h4 {
   line-height: 2.3rem;
 }
 
+h5 {
+  font-size: 2rem;
+}
+
 p {
   font-size: 1.35rem;
-  line-height: 1.75rem;
 }
 
 li {

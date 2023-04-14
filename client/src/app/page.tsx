@@ -5,18 +5,35 @@ import styles from '../styles/home.module.scss'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { useRef, useState, useEffect, useContext } from 'react'
+import { useRef, useState, useEffect, useContext, useMemo } from 'react'
 import { NavbarContext } from '../context/NavbarContextProvider';
 
 import Button from '@root/components/Button'
 import ProjectPreview from '@root/components/ProjectPreview'
 import Contact from '@root/components/Contact'
+import ProjectPreviewSkeleton from '@root/components/ProjectPreviewSkeleton';
 
 import heroImage from '@root/assets/images/Hero image.png'
 
 import { getAllProjects } from '@root/api/projectsClient';
 
+import ImageView from '../components/ImageView'
+import { useSearchParams } from 'next/navigation';
+
 export default function Home() {
+  /** Get url parameters */
+  const searchParams = useSearchParams();
+  const [isImageViewVisible, setIsImageViewVisible] = useState(false);
+  const [imageId, setImageId] = useState(0);
+
+  useEffect(()=>{
+    const urlId = searchParams.get('image_id');
+    if(urlId) {
+      setImageId(parseInt(urlId));
+      setIsImageViewVisible(true);
+    }
+  }, [])
+
   /** Navbar context */
   const { isAlwaysVisible, setIsAlwaysVisible } = useContext(NavbarContext);
 
@@ -40,18 +57,25 @@ export default function Home() {
   }
 
   /** Get projects */
-  const [projects, setProjects] = useState([]);
+  const [projectData, setProjectData] = useState([]);
+  const [projectHasNotLoaded, setProjectHasNotLoaded] = useState(true)
 
+  const projects = useMemo(() => {
+    return projectData;
+  }, [projectData]);
+  
   useEffect(()=>{
     async function fetchData() {
       const data = await getAllProjects();
-      setProjects(data);
+      setProjectData(data);
+      setProjectHasNotLoaded(false);
     }
     fetchData();
   }, [])
 
   return (
     <>
+      { isImageViewVisible && <ImageView id={imageId} show={isImageViewVisible} setShow={setIsImageViewVisible} />}
       {/* Hero section */}
       <main className={styles.heroContainer}>
         <div className={styles.initialNavbar}>
@@ -76,6 +100,7 @@ export default function Home() {
         </div>
       </main>
       {/* Project previews Section */}
+      { projectHasNotLoaded && <ProjectPreviewSkeleton />}
       <section className={styles.projectPreview} ref={projectsRef}>
         {projects.map((project, index) => (
           <ProjectPreview key={index} projectData={project}/>
