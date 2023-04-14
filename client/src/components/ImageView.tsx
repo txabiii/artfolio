@@ -17,7 +17,7 @@ interface ImageData {
   url: string;
 }
 
-export default function ImageView({ show, setShow, id, setClose }: any): JSX.Element {
+export default function ImageView({ show, setShow, id, goBack }: any): JSX.Element {
   /** Setup data */
   const [imageData, setImageData] = useState<ImageData>({ image_id: 0, image_name: '', description: '', url: ''})
   
@@ -40,7 +40,6 @@ export default function ImageView({ show, setShow, id, setClose }: any): JSX.Ele
 
   useEscapeKey(() => {
     setShow(false)
-    setClose(true)
   });
 
   /** For the Alert */
@@ -71,7 +70,6 @@ export default function ImageView({ show, setShow, id, setClose }: any): JSX.Ele
   /** Handle button close */
   const handleClose = () => {
     setShow(false);
-    setClose(true);
   }
   
   return(
