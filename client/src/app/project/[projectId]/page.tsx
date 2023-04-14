@@ -103,7 +103,8 @@ export default function Project({params}: {params: {projectId: number}}){
         </div>
         <section className={styles.imagesContainer}>
           {/* Images skeleton */}
-          { imageHasNotLoaded && <div className={styles.projectImages} style={{height:'500px'}}>
+          { imageHasNotLoaded && <div className={cx(styles.projectImages)} style={{height:'500px'}}>
+            <div className={cx(styles.imgWrapper, styles.imgSkeleton)}></div>
             <div className={cx(styles.imgWrapper, styles.imgSkeleton)}></div>
             <div className={cx(styles.imgWrapper, styles.imgSkeleton)}></div>
           </div>}

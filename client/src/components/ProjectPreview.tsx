@@ -41,7 +41,7 @@ export default function ProjectPreview({ projectData } : any): JSX.Element {
     router.push(`/?image_id=${id}`)
   }
 
-  /** When the ImageView is closed */
+  /** When the ImageView is closed   */
   useEffect(()=>{
     if(!isImageViewVisible) router.push('/')
   }, [isImageViewVisible])
