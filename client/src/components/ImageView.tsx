@@ -17,7 +17,7 @@ interface ImageData {
   url: string;
 }
 
-export default function ImageView({ show, setShow, id }: any): JSX.Element {
+export default function ImageView({ show, setShow, id, setClose }: any): JSX.Element {
   /** Setup data */
   const [imageData, setImageData] = useState<ImageData>({ image_id: 0, image_name: '', description: '', url: ''})
   
@@ -40,6 +40,7 @@ export default function ImageView({ show, setShow, id }: any): JSX.Element {
 
   useEscapeKey(() => {
     setShow(false)
+    setClose(true)
   });
 
   /** For the Alert */
@@ -57,6 +58,7 @@ export default function ImageView({ show, setShow, id }: any): JSX.Element {
     }
   }
 
+  /** For download */
   const handleDownload = () => {
     const link = document.createElement('a');
     link.href = imageData.url;
@@ -65,13 +67,19 @@ export default function ImageView({ show, setShow, id }: any): JSX.Element {
     link.click();
     document.body.removeChild(link);
   };
+
+  /** Handle button close */
+  const handleClose = () => {
+    setShow(false);
+    setClose(true);
+  }
   
   return(
     <>
       { showAlert && <Alert title='Link copied' message='Share the link to your friends!' variant='green' show={showAlert} setShow={setShowAlert} />}
       <div className={cx(styles.background, {[styles.fadeIn] : render})}>
         <div className={cx(styles.popup, {[styles.show] : render})}>
-        <button className={styles.closePopup} onClick={() => setShow(false)}>╳</button>
+        <button className={styles.closePopup} onClick={handleClose}>╳</button>
           <div className={styles.imgWrapper}>
             <Image src={imageData.url} alt='' fill={true} />
           </div>

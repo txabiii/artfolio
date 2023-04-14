@@ -100,12 +100,12 @@ export default function Home() {
         </div>
       </main>
       {/* Project previews Section */}
-      {/* { projectHasNotLoaded && <ProjectPreviewSkeleton />} */}
-      {/* <section className={styles.projectPreview} ref={projectsRef}>
+      { projectHasNotLoaded && <ProjectPreviewSkeleton />}
+      <section className={styles.projectPreview} ref={projectsRef}>
         {projects.map((project, index) => (
           <ProjectPreview key={index} projectData={project}/>
         ))}
-      </section> */}
+      </section>
       {/* Contact Section */}
       <section ref={contactRef}>
         <Contact />

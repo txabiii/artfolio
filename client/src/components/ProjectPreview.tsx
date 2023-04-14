@@ -41,14 +41,15 @@ export default function ProjectPreview({ projectData } : any): JSX.Element {
     router.push(`/?image_id=${id}`)
   }
 
-  /** When the ImageView is closed   */
+  /** When the ImageView is closed */
+  const [isClosed, setIsClosed] = useState(false)
   useEffect(()=>{
-    if(!isImageViewVisible) router.push('/')
-  }, [isImageViewVisible])
+    if(isClosed) router.push('/')
+  }, [isClosed]) // i need a different variable to depend on to say that the imageview has been closed
 
   return (
     <>
-      { isImageViewVisible && <ImageView id={imageId} show={isImageViewVisible} setShow={setIsImageViewVisible} />}
+      { isImageViewVisible && <ImageView id={imageId} show={isImageViewVisible} setShow={setIsImageViewVisible} setClose={setIsClosed}/>}
       <div className={styles.projectPreview}>
         <div className={styles.projectDetails}>
           <div className={styles.projectHeader}>          
