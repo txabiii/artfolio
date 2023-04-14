@@ -43,6 +43,7 @@ export default function ProjectPreview({ projectData } : any): JSX.Element {
 
   /** When the ImageView is closed */
   const goBack = () => {
+    console.log('runs')
     router.push('/');
   }
 
