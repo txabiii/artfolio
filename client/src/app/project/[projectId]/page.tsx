@@ -3,7 +3,7 @@
 import styles from '../../../styles/projectPage.module.scss'
 import cx from 'classnames'
 import { NavbarContext } from '../../../context/NavbarContextProvider';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -12,6 +12,7 @@ import { getProjectById } from '@root/api/projectsClient';
 import { getImagesByProject } from '@root/api/imagesClient';
 
 import ImageView from '../../../components/ImageView'
+import Button from '@root/components/Button';
 
 interface ProjectData {
   project_id: number;
@@ -93,13 +94,34 @@ export default function Project({params}: {params: {projectId: number}}){
   const [imageHasNotLoaded, setImageHasNotLoaded] = useState(true);
   const [imageHasLoaded, setImageHasLoaded] = useState(false);
 
+  /** Handle Read more */
+  const descriptionRef = useRef<HTMLDivElement>(null);
+  const [isDescriptionHidden, setIsDescriptionHidden] = useState(false)
+  function handleReadMore() {
+    if(descriptionRef.current){
+      descriptionRef.current.classList.remove(styles.hidden);
+      setIsDescriptionHidden(true);
+    }
+  }
+
+  function handleShowLess() {
+    if(descriptionRef.current){
+      descriptionRef.current.classList.add(styles.hidden);
+      setIsDescriptionHidden(false);
+    }
+  }
+
   return(
     <>
       <ImageView id={imageId} show={isImageViewVisible} setShow={setIsImageViewVisible} />
       <div className={styles.projectPage}>
         <div className={styles.projectDetails}>
           <h1>{ projectData.project_name }</h1>
-          <p>{ projectData.description }</p>
+          <p ref={descriptionRef} className={styles.hidden}>{ projectData.description }</p>
+          { projectData.project_id !== 0 && !isDescriptionHidden && 
+            <Button click={handleReadMore} content='Read more' variant='secondary' mini={true}/>
+          }
+          { isDescriptionHidden && <Button click={handleShowLess} content='Show less' variant='secondary' mini={true}/>}
         </div>
         <section className={styles.imagesContainer}>
           {/* Images skeleton */}

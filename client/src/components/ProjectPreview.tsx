@@ -5,7 +5,6 @@ import styles from '../styles/projectPreview.module.scss'
 import Button from '../components/Button'
 
 import Image from 'next/image'
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import dynamic from 'next/dynamic'
 
@@ -18,8 +17,6 @@ const ImageView = dynamic(() => import('./ImageView'), {
 })
 
 export default function ProjectPreview({ projectData } : any): JSX.Element {
-  const router = useRouter();
-
   /** Setup images */
   const [images, setImages] = useState([]);
 

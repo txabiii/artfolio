@@ -9,6 +9,7 @@ import useEscapeKey from '@root/utils/useEscapeKey';
 import { getImage } from '@root/api/imagesClient';
 import { usePathname } from 'next/navigation';
 import Alert from './Alert';
+import IconButton from './IconButton';
 
 interface ImageData {
   image_id: number;
@@ -86,11 +87,11 @@ export default function ImageView({ show, setShow, id, goBack }: any): JSX.Eleme
           </div>
           <div className={styles.imgDetails}>
             <div className={styles.header}>
-              <h3>{imageData.image_name}</h3>
+              <h4>{imageData.image_name}</h4>
               <div className={styles.buttonGroup}>
-                <Button content="Download" mini={true} variant="secondary" click={handleDownload} />
-                <Button content="Share link" mini={true} variant="secondary" click={handleClick} />
-                <Button content="View products" mini={true} variant="primary" />
+                <IconButton icon='download' variant='secondary' click={handleDownload}/>
+                <IconButton icon='link' variant='secondary' click={handleClick}/>
+                <Button content="Shop" mini={true} variant="primary" />
               </div>
             </div>
             <div className={styles.description}>
