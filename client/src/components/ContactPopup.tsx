@@ -19,6 +19,7 @@ export default function ContactPopup({ offset, mode = 'artfolio', show = false, 
     event.preventDefault();
     sendMessage(name, email, message)
     .then((response) => {
+      console.log(response)
       setShowAlert(true);
       setTitle(response.status);
       setAlertMessage(response.message);
