@@ -11,9 +11,27 @@
   align-items: center;
   flex-direction: column;
 
+  button {
+    margin-top: 2rem;
+  }
+
   h1{
     margin-bottom: 2rem;
   }
+
+  p {
+    padding: 0px 12rem;
+    color: rgb(var(--white-2-rgb));
+  }
+}
+
+.hidden {
+  max-height: 5.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .imagesContainer {
@@ -59,6 +77,12 @@
 }
 
 @media only screen and (max-width: 500px) {
+  .projectDetails {
+    p {
+      padding: 0px;
+    }
+  }
+
   .imgSkeleton:first-of-type {
     display: none;
   }

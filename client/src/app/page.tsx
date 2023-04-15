@@ -17,23 +17,7 @@ import heroImage from '@root/assets/images/Hero image.png'
 
 import { getAllProjects } from '@root/api/projectsClient';
 
-import ImageView from '../components/ImageView'
-import { useSearchParams } from 'next/navigation';
-
 export default function Home() {
-  /** Get url parameters */
-  const searchParams = useSearchParams();
-  const [isImageViewVisible, setIsImageViewVisible] = useState(false);
-  const [imageId, setImageId] = useState(0);
-
-  useEffect(()=>{
-    const urlId = searchParams.get('image_id');
-    if(urlId) {
-      setImageId(parseInt(urlId));
-      setIsImageViewVisible(true);
-    }
-  }, [])
-
   /** Navbar context */
   const { isAlwaysVisible, setIsAlwaysVisible } = useContext(NavbarContext);
 
@@ -75,7 +59,6 @@ export default function Home() {
 
   return (
     <>
-      { isImageViewVisible && <ImageView id={imageId} show={isImageViewVisible} setShow={setIsImageViewVisible} />}
       {/* Hero section */}
       <main className={styles.heroContainer}>
         <div className={styles.initialNavbar}>

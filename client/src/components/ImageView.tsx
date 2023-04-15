@@ -9,9 +9,11 @@ import useEscapeKey from '@root/utils/useEscapeKey';
 import { getImage } from '@root/api/imagesClient';
 import { usePathname } from 'next/navigation';
 import Alert from './Alert';
+import IconButton from './IconButton';
 
 interface ImageData {
   image_id: number;
+  project_id: number;
   image_name: string;
   description: string;
   url: string;
@@ -19,7 +21,7 @@ interface ImageData {
 
 export default function ImageView({ show, setShow, id }: any): JSX.Element {
   /** Setup data */
-  const [imageData, setImageData] = useState<ImageData>({ image_id: 0, image_name: '', description: '', url: ''})
+  const [imageData, setImageData] = useState<ImageData>({ image_id: 0, project_id: 0, image_name: '', description: '', url: ''})
   
   /** Handle popup's visibility */
   const [render, setRender] = useState(false);
@@ -49,7 +51,7 @@ export default function ImageView({ show, setShow, id }: any): JSX.Element {
   const handleClick = async () => {
     try {
       if(pathname) {
-        await navigator.clipboard.writeText('localhost:3000' + pathname + '?image_id=' + id)
+        await navigator.clipboard.writeText('localhost:3000/project/' + imageData.project_id  + '?image_id=' + id)
         setShowAlert(true);
       }
     } catch (err) {
@@ -77,11 +79,11 @@ export default function ImageView({ show, setShow, id }: any): JSX.Element {
           </div>
           <div className={styles.imgDetails}>
             <div className={styles.header}>
-              <h3>{imageData.image_name}</h3>
+              <h4>{imageData.image_name}</h4>
               <div className={styles.buttonGroup}>
-                <Button content="Download" mini={true} variant="secondary" click={handleDownload} />
-                <Button content="Share link" mini={true} variant="secondary" click={handleClick} />
-                <Button content="View products" mini={true} variant="primary" />
+                <IconButton icon='download' variant='secondary' click={handleDownload}/>
+                <IconButton icon='link' variant='secondary' click={handleClick}/>
+                <Button content="Shop" mini={true} variant="primary" />
               </div>
             </div>
             <div className={styles.description}>
