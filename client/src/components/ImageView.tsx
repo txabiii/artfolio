@@ -12,6 +12,7 @@ import Alert from './Alert';
 
 interface ImageData {
   image_id: number;
+  project_id: number;
   image_name: string;
   description: string;
   url: string;
@@ -19,7 +20,7 @@ interface ImageData {
 
 export default function ImageView({ show, setShow, id, goBack }: any): JSX.Element {
   /** Setup data */
-  const [imageData, setImageData] = useState<ImageData>({ image_id: 0, image_name: '', description: '', url: ''})
+  const [imageData, setImageData] = useState<ImageData>({ image_id: 0, project_id: 0, image_name: '', description: '', url: ''})
   
   /** Handle popup's visibility */
   const [render, setRender] = useState(false);
@@ -50,7 +51,7 @@ export default function ImageView({ show, setShow, id, goBack }: any): JSX.Eleme
   const handleClick = async () => {
     try {
       if(pathname) {
-        await navigator.clipboard.writeText('localhost:3000' + pathname + '?image_id=' + id)
+        await navigator.clipboard.writeText('https://artfolio-wiky.vercel.app/project/' + imageData.project_id + '?image_id=' + id)
         setShowAlert(true);
       }
     } catch (err) {
