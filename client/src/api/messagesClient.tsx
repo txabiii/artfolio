@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL = 'https://artfolio-backend.vercel.app';
 
 export async function sendMessage(name: string, email: string, message: string) {
   const data = {

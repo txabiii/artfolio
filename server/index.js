@@ -2,16 +2,16 @@
 
 const express = require('express')
 const cors = require('cors');
+const app = express();
 
-const app = express()
-app.use(express.json());
-
-const allowedOrigins = ['http://localhost:3000']
+const allowedOrigins = ['http://localhost:3000','https://artfolio-wiky.vercel.app','https://artfolio-git-deployment-txabiii.vercel.app']
 app.use(cors({
   origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }))
+
+app.use(express.json());
 
 /** Simple greeting */
 

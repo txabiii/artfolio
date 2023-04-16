@@ -39,7 +39,7 @@ export default function ProjectPreview({ projectData } : any): JSX.Element {
 
   return (
     <>
-      { isImageViewVisible && <ImageView id={imageId} show={isImageViewVisible} setShow={setIsImageViewVisible} />}
+      { isImageViewVisible && <ImageView id={imageId} show={isImageViewVisible} setShow={setIsImageViewVisible}/>}
       <div className={styles.projectPreview}>
         <div className={styles.projectDetails}>
           <div className={styles.projectHeader}>          

@@ -19,7 +19,7 @@ interface ImageData {
   url: string;
 }
 
-export default function ImageView({ show, setShow, id }: any): JSX.Element {
+export default function ImageView({ show, setShow, id, goBack }: any): JSX.Element {
   /** Setup data */
   const [imageData, setImageData] = useState<ImageData>({ image_id: 0, project_id: 0, image_name: '', description: '', url: ''})
   
@@ -42,6 +42,7 @@ export default function ImageView({ show, setShow, id }: any): JSX.Element {
 
   useEscapeKey(() => {
     setShow(false)
+    goBack();
   });
 
   /** For the Alert */
@@ -51,7 +52,7 @@ export default function ImageView({ show, setShow, id }: any): JSX.Element {
   const handleClick = async () => {
     try {
       if(pathname) {
-        await navigator.clipboard.writeText('localhost:3000/project/' + imageData.project_id  + '?image_id=' + id)
+        await navigator.clipboard.writeText('https://artfolio-wiky.vercel.app/project/' + imageData.project_id + '?image_id=' + id)
         setShowAlert(true);
       }
     } catch (err) {
@@ -59,6 +60,7 @@ export default function ImageView({ show, setShow, id }: any): JSX.Element {
     }
   }
 
+  /** For download */
   const handleDownload = () => {
     const link = document.createElement('a');
     link.href = imageData.url;
@@ -68,12 +70,18 @@ export default function ImageView({ show, setShow, id }: any): JSX.Element {
     document.body.removeChild(link);
   };
 
+  /** Handle button close */
+  const handleClose = () => {
+    setShow(false);
+    goBack();
+  }
+  
   return(
     <>
       { showAlert && <Alert title='Link copied' message='Share the link to your friends!' variant='green' show={showAlert} setShow={setShowAlert} />}
       <div className={cx(styles.background, {[styles.fadeIn] : render})}>
         <div className={cx(styles.popup, {[styles.show] : render})}>
-        <button className={styles.closePopup} onClick={() => setShow(false)}>╳</button>
+        <button className={styles.closePopup} onClick={handleClose}>╳</button>
           <div className={styles.imgWrapper}>
             <Image src={imageData.url} alt='' fill={true} />
           </div>

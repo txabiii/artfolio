@@ -90,8 +90,6 @@ export default function Home() {
         {projects.map((project, index) => (
           <ProjectPreview key={index} projectData={project}/>
         ))}
-        {/* <ProjectPreview/>
-        <ProjectPreview/> */}
       </section>
       {/* Contact Section */}
       <section ref={contactRef}>
