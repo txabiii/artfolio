@@ -19,9 +19,11 @@ import { getAllProjects } from '@root/api/projectsClient';
 
 export default function Home() {
   /** Navbar context */
-  const { isAlwaysVisible, setIsAlwaysVisible } = useContext(NavbarContext);
+  const { setMode, setIsAlwaysVisible, setIsHiddenMenuVisible } = useContext(NavbarContext);
 
   useEffect(()=>{
+    setIsHiddenMenuVisible(false)
+    setMode('artfolio')
     setIsAlwaysVisible(false)
   }, [])
 

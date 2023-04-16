@@ -52,7 +52,7 @@
 .navbarLeft {
   .navbarOptions {
     display: flex;
-    gap: 50px;
+    gap: 3.5rem;
     font-size: 1.6rem;
     transition: all 0.3s;
   }
@@ -60,6 +60,18 @@
 
 .hidden {
   display: none !important;
+}
+
+.emptyElement {
+  flex: 1;
+}
+
+.cartIcon {
+  height: 2rem;
+  width: auto;
+  margin-right: 3.5rem;
+  cursor: pointer;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(200deg) brightness(102%) contrast(102%);
 }
 
 .navbarBottom {
@@ -101,9 +113,14 @@
 
 .hamburgerMenu {
   display: none;
+  cursor: pointer;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
+  .cartIcon {
+    height: 3.5rem;
+    margin-right: 0.8rem;
+  }
   .navbarLeft {
     width: 100%;
     position: absolute;

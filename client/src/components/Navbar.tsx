@@ -9,6 +9,7 @@ import { useState, useRef, useEffect, useContext } from 'react';
 import ContactPopup from './ContactPopup';
 import PorjectPopup from './ProjectPopup';
 import Logo from 'public/assets/logo.svg'
+import CartIcon from '@root/assets/icons/cart.svg'
 
 import { NavbarContext } from '@root/context/NavbarContextProvider';
 
@@ -19,29 +20,29 @@ export default function Navbar (): JSX.Element {
   const navbar = useRef<HTMLDivElement>(null);
 
   /** Context */
-  const { mode, isAlwaysVisible } = useContext(NavbarContext);
+  const { mode, isAlwaysVisible, isHiddenMenuVisible, setIsHiddenMenuVisible } = useContext(NavbarContext);
 
   /** Mobile's hidden menu visibility */
 
   const hiddenMenu = useRef<HTMLDivElement>(null);
 
-  const [isVisible, setIsVisible] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState(0)
 
   function handleMenuClick(){
-    setIsVisible(!isVisible);
+    setIsHiddenMenuVisible(!isHiddenMenuVisible);
   }
 
   useEffect(()=>{
     const handleScroll = () => {
-      setIsVisible(false);
+      setIsHiddenMenuVisible(false);
     }
 
-    if(isVisible) window.addEventListener("scroll", handleScroll);
+    if(isHiddenMenuVisible) window.addEventListener("scroll", handleScroll);
     else window.removeEventListener("scroll",handleScroll);
 
     return () => window.removeEventListener("scroll",handleScroll)
-  }, [isVisible]);
+  }, [isHiddenMenuVisible]);
 
   function handleContactClick() {
     if(isProjectVisible) setIsProjectVisible(false);
@@ -55,14 +56,14 @@ export default function Navbar (): JSX.Element {
 
   useEffect(()=>{
     if(hiddenMenu.current){
-      const menuHeight = isVisible ? hiddenMenu.current.clientHeight : 0;
+      const menuHeight = isHiddenMenuVisible ? hiddenMenu.current.clientHeight : 0;
 
       if(navbar.current) {
         navbar.current.style.transform = `translateY(${menuHeight}px)`;
         setNavbarHeight(navbar.current.clientHeight + menuHeight);
       }
     }
-  }, [isVisible, isContactVisible, isProjectVisible, navbarHeight]);
+  }, [isHiddenMenuVisible, isContactVisible, isProjectVisible, navbarHeight]);
 
   function handlleProjectCLick() {
     if(isContactVisible) setIsContactVisible(false);
@@ -115,17 +116,18 @@ export default function Navbar (): JSX.Element {
               </div>
               <div className={styles.mode}>{ mode }</div>
             </div>
+            <div className={styles.emptyElement}></div>
+            { mode === 'shop' && <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>}
             <div className={styles.navbarLeft} ref={hiddenMenu}>
               { mode === 'artfolio' && <ul className={styles.navbarOptions}>
-                <li><b>Shop</b></li>
+                <Link href={'/shop'}><li><b>Shop</b></li></Link>
                 <li onClick={handlleProjectCLick}>Projects</li>
                 <li onClick={handleContactClick}>Contact</li>
               </ul>}
               { mode === 'shop' && <ul className={styles.navbarOptions}>
-                <li><b>Artfolio</b></li>
+                <Link href={'/'}><li><b>Artfolio</b></li></Link>
                 <li>Catalog</li>
-                <li>Contact</li>
-                <li>Cart</li>
+                <li onClick={handleContactClick}>Contact</li>
               </ul>}
             </div> 
             <div className={styles.hamburgerMenu} onClick={handleMenuClick}>☰</div>

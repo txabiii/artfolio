@@ -11,7 +11,7 @@ import { sendMessage } from '@root/api/messagesClient';
 
 import { useState } from 'react'
 
-export default function Contact () {
+export default function Contact ({ mode = 'artfolio' }: any) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -44,10 +44,12 @@ export default function Contact () {
     <>
       { showAlert && <Alert title={title} message={alertMessage} variant={variant} show={showAlert} setShow={setShowAlert}/>}
       <section className={styles.contact}>
-        <h2>Let&apos;s connect</h2>
+        { mode === 'artfolio' && <h2>Let&apos;s connect</h2>}
+        { mode === 'shop' && <h2>Got any issues?</h2>}
         <div className={styles.contactIntro}>
           <div className={styles.contactText}>
-            <p>If you would like to collaborate or have any inquiries about my work, please don&apos;t hesitate to get in touch.</p>
+            { mode === 'artfolio' && <p>If you would like to collaborate or have any inquiries about my work, please don&apos;t hesitate to get in touch.</p>}
+            { mode === 'shop' && <p>If you have any feedbacks or issues with our products please feel free to send us a message.</p>}
           </div>
           <div className={styles.contactDetails}>
             <div>
