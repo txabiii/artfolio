@@ -5,6 +5,12 @@
   border-radius: 10px;
   border: none;
   cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+
+.general:hover {
+  transform: scale(1.03);
+  filter: brightness(1.2);
 }
 
 .primary {

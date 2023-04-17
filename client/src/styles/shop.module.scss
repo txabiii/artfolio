@@ -3,18 +3,79 @@
 }
 
 .heroImages {
+  width: 100%;
   img {
     transform: scale(1.5);
     filter: drop-shadow(12px 24px 12px rgba(0,0,0,0.3));
   }
 
   img:nth-child(1) {
-    left: -50%;
+    left: -22rem;
     transform: scale(1.6) translateY(-10px) rotateZ(25deg);
   }
 
   img:nth-child(2) {
-    right: -50%;
+    right: -22rem;
     transform: scale(1.6) rotateZ(25deg);
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .hero {
+    flex-direction: column;
+  }
+  
+  .heroImages {
+    max-height: 10px;
+    min-height: 0;
+
+    img {
+      position: absolute;
+      top: 50%;
+      height: 36rem !important;
+      width: auto !important;
+    }
+
+    img:nth-child(1) {
+      left: -32rem;
+    }
+  
+    img:nth-child(2) {
+      right: -24em;
+      transform: scale(1.6) translateX(2.5rem) rotateZ(25deg);
+    }
+  }
+
+  .heroDetailsWrapper {
+    align-items: center;
+    padding-right: 12rem;
+    padding-left: 12rem;
+
+    p {
+      text-align: center;
+      width: 100%;
+    }
+  }
+}
+  
+@media only screen and (min-width: 1200px) {
+  .heroImages {
+    img:nth-child(1) {
+      left: -24rem;
+    }
+  
+    img:nth-child(2) {
+      right: -24em;
+      transform: scale(1.6) translateX(2.5rem) rotateZ(25deg);
+    }
+  }
+
+  .heroDetailsWrapper {
+    padding-right: 24rem;
+    padding-left: 24rem;
+
+    .shopButtonGroup > button {
+      flex: auto !important;
+    }
   }
 }

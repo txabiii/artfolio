@@ -35,17 +35,17 @@ export default function ShopHome() {
           <Image src='assets/logo.svg' alt='Website&apos;s logo' height={60} width={120}/>
           <Link href={'/shop'}><p><u>Shop</u></p></Link>
         </div>
-        <div className={homeStyles.hero}>
+        <div className={cx(homeStyles.hero, styles.hero)}>
           <div className={cx(homeStyles.heroImages, styles.heroImages)}>
             <Image className={styles.heroImage} src={HeroImage1} alt="" />
             <Image className={styles.heroImage} src={HeroImage2} alt="" />
           </div>
-          <div className={homeStyles.heroDetailsWrapper}>
+          <div className={cx(homeStyles.heroDetailsWrapper, styles.heroDetailsWrapper)}>
             <div className={cx(homeStyles.heroDetails, styles.shopHeroDetails)}>
               <h1>Art you can <span>touch</span>, <span>feel</span>, and <span>wear</span></h1>
               <p>Digital art isn't just for display screens. Here, we offer a wide range of physical products that let you touch, feel, and wear your favorite designs, so you can bring the beauty and inspiration of digital art into your everyday life.</p>
             </div>
-            <div className={homeStyles.heroButtonGroup}>
+            <div className={cx(homeStyles.heroButtonGroup, styles.shopButtonGroup)}>
               <Button variant="primary" content="Browse products"/>
               <Button variant="secondary" content="Contact us"/>
             </div>

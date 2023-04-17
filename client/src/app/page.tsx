@@ -66,7 +66,7 @@ export default function Home() {
         <div className={styles.initialNavbar}>
           <Link href={''}><p><u>Artfolio</u></p></Link>
           <Image src='assets/logo.svg' alt='Website&apos;s logo' height={60} width={120}/>
-          <Link href={''}><p>Shop</p></Link>
+          <Link href={'/shop'}><p>Shop</p></Link>
         </div>
         <div className={styles.hero}>
           <div className={styles.heroImages}>

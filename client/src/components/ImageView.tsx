@@ -42,7 +42,6 @@ export default function ImageView({ show, setShow, id, goBack }: any): JSX.Eleme
 
   useEscapeKey(() => {
     setShow(false)
-    goBack();
   });
 
   /** For the Alert */
@@ -73,7 +72,6 @@ export default function ImageView({ show, setShow, id, goBack }: any): JSX.Eleme
   /** Handle button close */
   const handleClose = () => {
     setShow(false);
-    goBack();
   }
   
   return(
