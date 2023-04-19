@@ -5,12 +5,12 @@
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease-out;
+  transition: all 0.4s ease-out;
 }
 
 .general:hover {
   transform: scale(1.03);
-  filter: brightness(1.2);
+  transition: all 0.2s ease-out;
 }
 
 .primary {
@@ -23,6 +23,12 @@
   color: rgb(var(--blue-3-rgb));
   background-color: white;
   box-shadow: 0px 5px 10px rgba(0,0,0,0.20);
+}
+
+.tertiary {
+  color: rgb(var(--blue-3-rgb));
+  font-weight: 500;
+  background-color: rgb(var(--gray-rgb));
 }
 
 .mini {

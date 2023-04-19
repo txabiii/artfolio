@@ -19,20 +19,18 @@ import Link from 'next/link';
 export default function Navbar (): JSX.Element {
   const navbar = useRef<HTMLDivElement>(null);
 
-  /** Context */
+  /** Navbar Context */
   const { mode, isAlwaysVisible, isHiddenMenuVisible, setIsHiddenMenuVisible } = useContext(NavbarContext);
 
   /** Mobile's hidden menu visibility */
-
   const hiddenMenu = useRef<HTMLDivElement>(null);
-
-  // const [isVisible, setIsVisible] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState(0)
 
   function handleMenuClick(){
     setIsHiddenMenuVisible(!isHiddenMenuVisible);
   }
 
+  /** Hide hidden menu when user scrolls */
   useEffect(()=>{
     const handleScroll = () => {
       setIsHiddenMenuVisible(false);
@@ -44,13 +42,7 @@ export default function Navbar (): JSX.Element {
     return () => window.removeEventListener("scroll",handleScroll)
   }, [isHiddenMenuVisible]);
 
-  function handleContactClick() {
-    if(isProjectVisible) setIsProjectVisible(false);
-    setIsContactVisible(!isContactVisible);
-  }
-
   /** Contact and Project popups */
-
   const [isContactVisible, setIsContactVisible] = useState(false);
   const [isProjectVisible, setIsProjectVisible] = useState(false);
 
@@ -70,8 +62,12 @@ export default function Navbar (): JSX.Element {
     setIsProjectVisible(!isProjectVisible)
   }
 
-  /** Navbar's visibiNlity */
+  function handleContactClick() {
+    if(isProjectVisible) setIsProjectVisible(false);
+    setIsContactVisible(!isContactVisible);
+  }
 
+  /** Navbar's visibiNlity */
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
 
   useEffect(()=>{
@@ -117,7 +113,6 @@ export default function Navbar (): JSX.Element {
               <div className={styles.mode}>{ mode }</div>
             </div>
             <div className={styles.emptyElement}></div>
-            { mode === 'shop' && <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>}
             <div className={styles.navbarLeft} ref={hiddenMenu}>
               { mode === 'artfolio' && <ul className={styles.navbarOptions}>
                 <Link href={'/shop'}><li><b>Shop</b></li></Link>
@@ -128,6 +123,12 @@ export default function Navbar (): JSX.Element {
                 <Link href={'/'}><li><b>Artfolio</b></li></Link>
                 <li>Catalog</li>
                 <li onClick={handleContactClick}>Contact</li>
+                { mode === 'shop' && 
+                  <>
+                    <li>Cart</li>
+                    <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
+                  </>
+                }
               </ul>}
             </div> 
             <div className={styles.hamburgerMenu} onClick={handleMenuClick}>☰</div>

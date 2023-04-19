@@ -3,7 +3,7 @@
 import styles from '../../../styles/projectPage.module.scss'
 import cx from 'classnames'
 import { NavbarContext } from '../../../context/NavbarContextProvider';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState, useMemo } from 'react';
 
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -64,13 +64,15 @@ export default function Project({params}: {params: {projectId: number}}){
   /** Images */
   const [images, setImages] = useState<[ImageData]>([{image_id: 0, image_name: '', description: '', url: ''}]);
 
+  const memoizedImages = useMemo(() => images, [images]);
+
   useEffect(()=>{
     async function fetchData(){
       const data = await getImagesByProject(projectId);
       setImages(data);
       setImageHasNotLoaded(false)
       setImageHasLoaded(true)
-    };
+    }; 
     fetchData();
   }, [])
 
@@ -86,7 +88,7 @@ export default function Project({params}: {params: {projectId: number}}){
 
   /** When the ImageView is closed */
   useEffect(()=>{
-    if(images.length === 1) return;
+    if(memoizedImages.length === 1) return;
     if(!isImageViewVisible) router.push(`/project/${projectId}`)
   }, [isImageViewVisible])
 
@@ -133,7 +135,7 @@ export default function Project({params}: {params: {projectId: number}}){
           {/* Actual Images */}
           { imageHasLoaded && <div className={styles.projectImages}>
             {
-              images.map((image)=>{return(
+              memoizedImages.map((image)=>{return(
                 <div key={image.image_id} className={styles.imgWrapper}>
                   <Image src={image.url} alt="" fill={true} sizes={"auto, auto, auto"} onClick={() => hanndleImageClick(image.image_id)}/>
                 </div>

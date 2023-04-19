@@ -1,4 +1,4 @@
-const BASE_URL = 'https://artfolio-backend.vercel.app';
+const BASE_URL = 'http://localhost:5000';
 
 export async function getAllProjects() {
   try {

@@ -1,3 +1,7 @@
+.hero {
+  overflow-y: clip;
+}
+
 .shopHeroDetails {
   text-align: center;
 }
@@ -57,6 +61,28 @@
     }
   }
 }
+
+.featuredSection {
+  padding: var(--side-margin);
+  align-items: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.featuredButtonGroup {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.productSection {
+  padding: var(--side-margin);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1.2rem;
+}
   
 @media only screen and (min-width: 1200px) {
   .heroImages {
@@ -74,8 +100,11 @@
     padding-right: 24rem;
     padding-left: 24rem;
 
-    .shopButtonGroup > button {
-      flex: auto !important;
+    .shopButtonGroup{
+      margin-bottom: 10px;
+      button {
+        flex: auto !important;
+      }
     }
   }
 }
