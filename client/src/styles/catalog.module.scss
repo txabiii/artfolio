@@ -1,0 +1,89 @@
+.catalog {
+  padding: var(--side-margin);
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+
+.filter {
+  flex: 7;
+  background-color: rgb(var(--white-2-rgb));
+  color: rgb(var(--blue-3-rgb));
+  border-radius: 1.6rem;
+  padding: calc(var(--side-margin)/2);
+
+  fieldset {
+    border: none;
+  }
+
+  h3 {
+    margin-bottom: 2.5rem;
+  }
+
+  h5 {
+    margin-top: 1.6rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .search {
+    width: 100%;
+    border: none;
+    border-radius: 15px;
+    padding-left: 10px;
+    height: 30px;
+  }
+
+  .categories {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    label {
+      color: rgb(var(--blue-2-rgb));
+    }
+
+    input {
+      margin-right: 0.6rem;
+    }
+  }
+
+  .priceRange {
+    border: none;
+    background-color: rgb(var(--white-3-rgb));
+    color: rgb(var(--blue-2-rgb));
+    border-radius: 0.8rem;
+    padding-left: 10px;
+    height: 30px;
+  }
+
+  .priceRange:first-of-type {
+    margin-left: 0.6rem;
+  }
+
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .separator {
+    display: inline-block;
+    width: 1.2rem;
+  }
+}
+
+.productSection {
+  flex: 24;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1.2rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .productSection {
+    flex: 24;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1.2rem;
+  }
+}

@@ -13,9 +13,9 @@ export default function ProductCard({ product }: { product: Product}) {
   useEffect(()=>{
     if(product.sale_percent === null) return;
     if(product.sale_percent !== undefined) {
-      //price = 4.99 sale_percent = 25 sale_price = 4.99 - (4.99 * (25/100))
-      const salePrice = (product.price - (product.price * (product.sale_percent / 100))).toFixed(2);
-      setSalePrice(parseFloat(salePrice));
+      let salePrice = (product.price * ((100 - product.sale_percent) / 100));
+      salePrice = Math.floor(salePrice * 100) / 100
+      setSalePrice(parseFloat(salePrice.toFixed(2)));
     }
   }, [])
 
@@ -36,7 +36,7 @@ export default function ProductCard({ product }: { product: Product}) {
         <div className={styles.productDetails}>
           <h5>{ product.product_name }</h5>
           <h5 className={cx({[styles.strikeThrough] : salePrice})}>${ product.price }</h5>
-          { salePrice !== 0 && <h5>{ salePrice?.toFixed(2) }</h5>}
+          { salePrice !== null && <h5>${ salePrice?.toFixed(2) }</h5>}
         </div>
       </div>
     </div>

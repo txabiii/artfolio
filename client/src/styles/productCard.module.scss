@@ -34,6 +34,11 @@
         font-weight: 400;
         margin-bottom: 1.2rem;
       }
+
+      h5:nth-child(1):hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
       
       h5:nth-child(2), h5:nth-child(3) {
         display: inline;
@@ -73,5 +78,13 @@
    
   p{
     font-weight: 900;
+  }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1000px) {
+  .productDetails {
+    h5:nth-child(2), h5:nth-child(3) {
+      display: block !important;
+    }
   }
 }

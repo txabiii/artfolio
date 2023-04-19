@@ -51,5 +51,16 @@ router.get('/new', async (req, res) => {
   }
 });
 
+// Select all product categories
+
+router.get('/categories', async (req, res) => {
+  try {
+    const result = await sql`select * from categories`;
+    res.send(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
+  }
+});
 
 module.exports = router;

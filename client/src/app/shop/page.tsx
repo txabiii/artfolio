@@ -6,7 +6,8 @@ import cx from 'classnames'
 
 import Button from '@root/components/Button'
 import Contact from '@root/components/Contact'
-import ProductCard from '@root/components/ProductCard'
+import Featured from '@root/components/Featured'
+import Catalog from '@root/components/Catalog'
 import HeroImage1 from '@root/assets/images/shop-1.png'
 import HeroImage2 from '@root/assets/images/shop-2.png'
 
@@ -16,9 +17,6 @@ import Link from 'next/link'
 import { useContext, useEffect, useState, useMemo } from 'react'
 
 import { NavbarContext } from '@root/context/NavbarContextProvider'
-import { getAllProducts, getNewArrivals, getSaleProducts, getTopProducts } from '@root/api/productsClient'
-
-import { Product } from '@root/utils/interfaces'
 
 export default function ShopHome() {
   /** Navbar context */
@@ -28,36 +26,6 @@ export default function ShopHome() {
     setIsHiddenMenuVisible(false)
     setMode('shop');
     setIsAlwaysVisible(false);
-  }, [])
-
-  /** Get all products */
-  const [products, setProducts] = useState<Product[]>([]);
-
-  /** Get on-sale producs */
-  const [onSale, setOnSale] = useState<Product[]>([])
-
-  /** Get top pick producs */
-  const [topPicks, setTopPicks] = useState<Product[]>([])
-
-  /** Get new arrivals producs */
-  const [newArrivals, setNewArrivals] = useState<Product[]>([])
-  
-
-  useEffect(()=>{
-    async function fetchData() {
-      const allProducts = await getAllProducts();
-      setProducts(allProducts);
-
-      const onSale = await getSaleProducts();
-      setOnSale(onSale);
-
-      const topPicks = await getTopProducts();
-      setTopPicks(topPicks);
-
-      const newArrivals = await getNewArrivals();
-      setNewArrivals(newArrivals);
-    }
-    fetchData();
   }, [])
 
   return(
@@ -87,22 +55,9 @@ export default function ShopHome() {
         </div>
       </main>
       {/* Featured Section */}
-      <section className={styles.featuredSection}>
-        <h3>Featured Products</h3>
-        <div className={styles.featuredButtonGroup}>  
-          <Button content='On Sale' variant='primary'/>
-          <Button content='Top Picks' variant='tertiary'/>
-          <Button content='New Arrivals' variant='tertiary'/>
-        </div>
-      </section>
+      <Featured />
       {/* Products Section */}
-      <section className={styles.productSection}>
-        {products.map((product) => (
-          <div key={product.product_id}>
-            <ProductCard product  ={product} />
-          </div>
-        ))}
-      </section>
+      <Catalog />
       {/* Contact Section */}
       <Contact mode='shop'/>
     </>

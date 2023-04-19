@@ -61,28 +61,6 @@
     }
   }
 }
-
-.featuredSection {
-  padding: var(--side-margin);
-  align-items: center;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.featuredButtonGroup {
-  display: flex;
-  gap: 0.6rem;
-}
-
-.productSection {
-  padding: var(--side-margin);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 1.2rem;
-}
   
 @media only screen and (min-width: 1200px) {
   .heroImages {

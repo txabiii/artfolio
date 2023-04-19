@@ -56,3 +56,16 @@ export async function getNewArrivals(): Promise<Product[]> {
     throw new Error("Failed to fetch products");
   }
 }
+
+/** Get categories */
+
+export async function getCategories() {
+  try {
+    const response = await fetch(`${BASE_URL}/products/categories`);
+    const data = await response.json();
+    return data
+  } catch(error) {
+    console.log(error)
+    throw new Error("Failed to fetch products");
+  }
+}

@@ -69,7 +69,6 @@
 .cartIcon {
   height: 2rem;
   width: auto;
-  margin-right: 3.5rem;
   cursor: pointer;
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(200deg) brightness(102%) contrast(102%);
 }
@@ -119,7 +118,6 @@
 @media only screen and (max-width: 600px) {
   .cartIcon {
     height: 3.5rem;
-    margin-right: 0.8rem;
   }
   .navbarLeft {
     width: 100%;

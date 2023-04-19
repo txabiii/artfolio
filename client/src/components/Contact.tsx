@@ -71,7 +71,7 @@ export default function Contact ({ mode = 'artfolio' }: any) {
           <div className={styles.contactForm}>
             <div className={styles.formLeft}>
               <div>
-                <label htmlFor="name"><p><b>Name:</b></p></label>
+                <label htmlFor="name"><b>Name:</b></label>
                 <input
                   id="name"
                   type="text"
@@ -81,7 +81,7 @@ export default function Contact ({ mode = 'artfolio' }: any) {
                 />
               </div>
               <div>
-                <label htmlFor="email"><p><b>Email address:</b></p></label>
+                <label htmlFor="email"><b>Email address:</b></label>
                 <input
                   id="email"
                   type="email"
@@ -92,7 +92,7 @@ export default function Contact ({ mode = 'artfolio' }: any) {
               </div>
             </div>
             <div className={styles.formRight}>
-              <label htmlFor="message"><p><b>Message:</b></p></label>
+              <label htmlFor="message"><b>Message:</b></label>
               <textarea
                 id="message"
                 value={message}
