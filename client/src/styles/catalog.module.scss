@@ -11,8 +11,12 @@
   color: rgb(var(--blue-3-rgb));
   border-radius: 1.6rem;
   padding: calc(var(--side-margin)/2);
+  margin-bottom: var(--side-margin);
 
   fieldset {
+    padding: 1.2rem;
+    border-radius: 1.2rem;
+    background-color: rgb(var(--white-rgb));
     border: none;
   }
 
@@ -22,15 +26,16 @@
 
   h5 {
     margin-top: 1.6rem;
-    margin-bottom: 0.6rem;
+    margin-bottom: 1rem;
   }
 
   .search {
     width: 100%;
     border: none;
-    border-radius: 15px;
-    padding-left: 10px;
-    height: 30px;
+    border-radius: 1.2rem;
+    padding-left: 0.8rem;
+    height: 4rem;
+    font-size: 1.5rem;
   }
 
   .categories {
@@ -39,7 +44,7 @@
     gap: 0.6rem;
 
     label {
-      color: rgb(var(--blue-2-rgb));
+      color: rgb(var(--blue-3-rgb));
     }
 
     input {
@@ -49,11 +54,12 @@
 
   .priceRange {
     border: none;
-    background-color: rgb(var(--white-3-rgb));
-    color: rgb(var(--blue-2-rgb));
-    border-radius: 0.8rem;
-    padding-left: 10px;
-    height: 30px;
+    background-color: rgb(var(--white-rgb));
+    color: rgb(var(--blue-3-rgb));
+    border-radius: 1.2rem;
+    padding-left: 0.8rem;
+    height: 4rem;
+    font-size: 1.5rem;
   }
 
   .priceRange:first-of-type {
@@ -82,8 +88,13 @@
 @media only screen and (max-width: 900px) {
   .productSection {
     flex: 24;
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .catalog {
+    flex-direction: column;
+    align-items: normal;
   }
 }

@@ -60,8 +60,8 @@ export default function Catalog() {
         <h3>Catalog</h3>
         <h5>Search</h5>
         <input className={styles.search} type='text' placeholder='Search for an item...' />
-        <fieldset className={styles.categories}>
         <legend><h5>Categories</h5></legend>
+        <fieldset className={styles.categories}>
         {categories.map((category) => (
           <div key={category.category_id}>
             <input
@@ -93,6 +93,7 @@ export default function Catalog() {
           onChange={(e) => setMaxPrice(parseInt(e.target.value))}
         />
       </div>
+      {/* Products */}
       <section className={styles.productSection}>
         {productsMemo.map((product) => (
           <div key={product.product_id}>

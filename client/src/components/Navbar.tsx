@@ -125,13 +125,18 @@ export default function Navbar (): JSX.Element {
                 <li onClick={handleContactClick}>Contact</li>
                 { mode === 'shop' && 
                   <>
-                    <li>Cart</li>
-                    <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
+                    <li className={styles.cartLink}>
+                      Cart
+                      <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
+                    </li>
                   </>
                 }
               </ul>}
             </div> 
-            <div className={styles.hamburgerMenu} onClick={handleMenuClick}>☰</div>
+            <div className={styles.hiddenIcons}>
+              <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
+            </div>
+            <div className={styles.hiddenIcons} onClick={handleMenuClick}>☰</div>
           </div>
           <div className={cx(styles.navbarBottom, {
             [styles.hidden]: mode === 'artfolio',
@@ -139,13 +144,11 @@ export default function Navbar (): JSX.Element {
             <div className={styles.categories}>
               <ul>
                 <li>Shirt</li>
-                <li>Jacket</li>
                 <li>Pillow</li>
                 <li>Notebook</li>
                 <li>Mug</li>
                 <li>Sticker</li>
-                <li>Sweater</li>
-                <li>Poster</li>
+                <li>Banner</li>
               </ul>
             </div>
             <div className={styles.search}>
