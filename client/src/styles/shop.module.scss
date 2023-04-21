@@ -4,6 +4,15 @@
 
 .shopHeroDetails {
   text-align: center;
+
+  p {
+    width: 100%;
+  }
+}
+
+.heroDetailsWrapper {
+  position: relative;
+  justify-content: center !important;
 }
 
 .heroImages {
@@ -59,6 +68,11 @@
       text-align: center;
       width: 100%;
     }
+  }
+
+  .shopButtonGroup {
+    position: absolute;
+    bottom: 0;
   }
 }
   

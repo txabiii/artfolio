@@ -4,7 +4,7 @@ import styles from '../styles/navbar.module.scss'
 import Image from 'next/image'
 import cx from 'classnames'
 
-import { useState, useRef, useEffect, useContext } from 'react';
+import { useState, useRef, useEffect, useContext, useMemo } from 'react';
 
 import ContactPopup from './ContactPopup';
 import PorjectPopup from './ProjectPopup';
@@ -14,7 +14,14 @@ import CartIcon from '@root/assets/icons/cart.svg'
 import { NavbarContext } from '@root/context/NavbarContextProvider';
 
 import { getAllProjects } from '@root/api/projectsClient';
+import { getCategories } from '@root/api/productsClient';
+
 import Link from 'next/link';
+
+interface Category {
+  category_id: number;
+  category_name: string;
+}
 
 export default function Navbar (): JSX.Element {
   const navbar = useRef<HTMLDivElement>(null);
@@ -67,7 +74,7 @@ export default function Navbar (): JSX.Element {
     setIsContactVisible(!isContactVisible);
   }
 
-  /** Navbar's visibiNlity */
+  /** Navbar's visibility */
   const [isNavbarVisible, setIsNavbarVisible] = useState(false);
 
   useEffect(()=>{
@@ -97,6 +104,21 @@ export default function Navbar (): JSX.Element {
     fetchData();
   }, [])
 
+  /** Get categories */
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  const categoriesMemo = useMemo(()=>{
+    return categories
+  }, [categories])
+
+  useEffect(()=>{
+    async function fetchData(){
+      const data = await getCategories();
+      setCategories(data);
+    };
+    fetchData();
+  }, [])
+
   return(
     <>
       { isNavbarVisible && <div>
@@ -106,7 +128,7 @@ export default function Navbar (): JSX.Element {
           <div className={styles.navbarTop}>        
             <div className={styles.navbarRight}>
               <div className={styles.imgWrapper}>        
-                <Link href='/'>
+                <Link href={ mode === 'artfolio' ? '/' : '/shop'}>
                   <Image src={Logo} alt='Website&apos;s logo' fill={true}/>
                 </Link>
               </div>
@@ -121,7 +143,7 @@ export default function Navbar (): JSX.Element {
               </ul>}
               { mode === 'shop' && <ul className={styles.navbarOptions}>
                 <Link href={'/'}><li><b>Artfolio</b></li></Link>
-                <li>Catalog</li>
+                <Link href={'/shop/catalog'} ><li>Catalog</li></Link>
                 <li onClick={handleContactClick}>Contact</li>
                 { mode === 'shop' && 
                   <>
@@ -133,9 +155,9 @@ export default function Navbar (): JSX.Element {
                 }
               </ul>}
             </div> 
-            <div className={styles.hiddenIcons}>
+            { mode === 'shop' && <div className={styles.hiddenIcons}>
               <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
-            </div>
+            </div>}
             <div className={styles.hiddenIcons} onClick={handleMenuClick}>☰</div>
           </div>
           <div className={cx(styles.navbarBottom, {
@@ -143,12 +165,13 @@ export default function Navbar (): JSX.Element {
           })}>
             <div className={styles.categories}>
               <ul>
-                <li>Shirt</li>
-                <li>Pillow</li>
-                <li>Notebook</li>
-                <li>Mug</li>
-                <li>Sticker</li>
-                <li>Banner</li>
+                {
+                  categoriesMemo.map((category)=>(
+                    <Link key={category.category_id} href={`/shop/catalog?category_id=${category.category_id}`}>
+                      <li>{ category.category_name }</li>
+                    </Link>
+                  ))
+                }
               </ul>
             </div>
             <div className={styles.search}>

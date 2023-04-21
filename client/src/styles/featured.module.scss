@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .featuredSection {
   padding: var(--side-margin);
   align-items: center;
@@ -23,6 +25,20 @@
 
 .fadeIn{
   opacity: 1
+}
+
+.productCardSkeleton {
+  border-radius: calc(var(--side-margin)/2);
+  overflow: hidden;
+  div:nth-child(1) {
+    @include shimmer(-350px, #dbdbdb, #edeef1, 0s);
+    height: 18rem;
+  }
+
+  div:nth-child(2) {
+    @include shimmer(-350px, #ededed, #ffffff, 0.1s);
+    height: 10rem;
+  }
 }
 
 @media only screen and (max-width: 900px) {

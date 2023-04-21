@@ -1,8 +1,15 @@
 const BASE_URL = 'http://localhost:5000';
 
-/** Product object interface */
+/** Interface */
 
 import { Product } from '@root/utils/interfaces'
+
+interface ProductQueryParams {
+  categoryIds?: number[],
+  search?: string,
+  minPrice?: number | null,
+  maxPrice?: number | null
+}
 
 /** Parse price string to number */
 
@@ -13,12 +20,24 @@ const parsePrice = (product: any): Product => ({
 
 /** Get data functions */
 
-export async function getAllProducts(): Promise<Product[]> {
+export async function getAllProducts(queryParams: ProductQueryParams = {}): Promise<Product[]> {
   try {
-    const response = await fetch(`${BASE_URL}/products`);
+    let url = `${BASE_URL}/products`;
+
+    if (queryParams.categoryIds && queryParams.categoryIds.length > 0) {
+      url += `?category_id=${queryParams.categoryIds.join(',')}`;
+    }
+    if (queryParams.search) {
+      url += `${queryParams.categoryIds?.length !== 0 ? '&' : '?'}search=${encodeURIComponent(queryParams.search)}`;
+    }
+    if (queryParams.minPrice !== undefined && queryParams.maxPrice !== undefined && queryParams.minPrice !== null && queryParams.maxPrice !== null) {
+      url += `${queryParams.categoryIds?.length !== 0 || queryParams.search ? '&' : '?'}min_price=${queryParams.minPrice}&max_price=${queryParams.maxPrice}`;
+    }
+
+    const response = await fetch(url);
     const data = await response.json();
     return data.map(parsePrice);
-  } catch(error) {
+  } catch(error) { 
     console.log(error)
     throw new Error("Failed to fetch products");
   }

@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .catalog {
   padding: var(--side-margin);
   display: flex;
@@ -6,12 +8,15 @@
 }
 
 .filter {
+  position: relative;  
   flex: 7;
   background-color: rgb(var(--white-2-rgb));
   color: rgb(var(--blue-3-rgb));
   border-radius: 1.6rem;
   padding: calc(var(--side-margin)/2);
   margin-bottom: var(--side-margin);
+  overflow: hidden;
+  transition: all 300ms ease-in !important;
 
   fieldset {
     padding: 1.2rem;
@@ -20,8 +25,16 @@
     border: none;
   }
 
+  button {
+    width: 100%;
+    margin-top: 2.4rem;
+    margin-bottom: 0.6rem;
+    border-radius: var(--side-margin);
+    background-color: rgb(var(--pink-2-rgb)) !important;
+  }
+
   h3 {
-    margin-bottom: 2.5rem;
+    cursor: pointer;
   }
 
   h5 {
@@ -53,6 +66,8 @@
   }
 
   .priceRange {
+    width: 0;
+    flex: 1;
     border: none;
     background-color: rgb(var(--white-rgb));
     color: rgb(var(--blue-3-rgb));
@@ -71,11 +86,11 @@
     -webkit-appearance: none;
     margin: 0;
   }
+}
 
-  .separator {
-    display: inline-block;
-    width: 1.2rem;
-  }
+.priceRangeWrapper {
+  display: flex;
+  gap: 1.2rem
 }
 
 .productSection {
@@ -85,10 +100,44 @@
   grid-gap: 1.2rem;
 }
 
+.expandMore {
+  display: none;
+  position: absolute;
+  right: 1.2rem;
+  top: 0;
+  cursor: pointer;
+  transition: all 300ms ease;
+  height: 6rem;
+
+  img {
+    height: 100%;
+    width: auto;
+    filter: invert(8%) sepia(56%) saturate(3364%) hue-rotate(235deg) brightness(84%) contrast(109%);
+  }
+}
+
+.productCardSkeleton {
+  border-radius: calc(var(--side-margin)/2);
+  overflow: hidden;
+  div:nth-child(1) {
+    @include shimmer(-350px, #dbdbdb, #edeef1, 0s);
+    height: 18rem;
+  }
+
+  div:nth-child(2) {
+    @include shimmer(-350px, #ededed, #ffffff, 0.1s);
+    height: 10rem;
+  }
+}
+
 @media only screen and (max-width: 900px) {
   .productSection {
     flex: 24;
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .productCardSkeleton:first-of-type {
+    display: none;
   }
 }
 
@@ -96,5 +145,9 @@
   .catalog {
     flex-direction: column;
     align-items: normal;
+  }
+
+  .expandMore {
+    display: block;
   }
 }

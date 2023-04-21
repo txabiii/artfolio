@@ -14,7 +14,7 @@ import HeroImage2 from '@root/assets/images/shop-2.png'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { useContext, useEffect, useState, useMemo } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 
 import { NavbarContext } from '@root/context/NavbarContextProvider'
 
@@ -27,6 +27,20 @@ export default function ShopHome() {
     setMode('shop');
     setIsAlwaysVisible(false);
   }, [])
+
+  /** Scroll to contact */
+  const contactRef = useRef<HTMLDivElement>(null);
+
+  const scrollToContact = () => {
+    if(contactRef.current) contactRef.current.scrollIntoView({ behavior: 'smooth'});
+  }
+
+  /** Scroll to catalog */
+  const catalogRef = useRef<HTMLDivElement>(null);
+
+  const scrollToCatalog = () => {
+    if(catalogRef.current) catalogRef.current.scrollIntoView({ behavior: 'smooth'});
+  }
 
   return(
     <>
@@ -48,8 +62,8 @@ export default function ShopHome() {
               <p>Digital art isn't just for display screens. Here, we offer a wide range of physical products that let you touch, feel, and wear your favorite designs, so you can bring the beauty and inspiration of digital art into your everyday life.</p>
             </div>
             <div className={cx(homeStyles.heroButtonGroup, styles.shopButtonGroup)}>
-              <Button variant="primary" content="Browse products"/>
-              <Button variant="secondary" content="Contact us"/>
+              <Button variant="primary" content="Browse products" click={scrollToCatalog}/>
+              <Button variant="secondary" content="Contact us" click={scrollToContact}/>
             </div>
           </div>
         </div>
@@ -57,9 +71,13 @@ export default function ShopHome() {
       {/* Featured Section */}
       <Featured />
       {/* Products Section */}
-      <Catalog />
+      <section ref={catalogRef}>
+        <Catalog />
+      </section>
       {/* Contact Section */}
-      <Contact mode='shop'/>
+      <section ref={contactRef}>
+        <Contact mode='shop'/>
+      </section>
     </>
   )
 }

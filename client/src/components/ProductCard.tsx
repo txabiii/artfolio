@@ -26,18 +26,18 @@ export default function ProductCard({ product }: { product: Product}) {
           <p>-{ product.sale_percent }%</p>
         </div>
       }
-      <div className={styles.iconWrapper}>
-        <IconButton icon='bag' variant='secondary'/>
-      </div>
       <div className={styles.imgWrapper}>
         <Image src={product.url} alt='' fill={true} />
       </div>
       <div className={styles.productDetailsWrapper}>
         <div className={styles.productDetails}>
-          <h5>{ product.product_name }</h5>
+          <h5 tabIndex={0}>{ product.product_name }</h5>
           <h5 className={cx({[styles.strikeThrough] : salePrice})}>${ product.price }</h5>
           { salePrice !== null && <h5>${ salePrice?.toFixed(2) }</h5>}
         </div>
+      </div>
+      <div className={styles.iconWrapper}>
+        <IconButton icon='bag' variant='secondary' click={()=>{console.log('to be created')}}/>
       </div>
     </div>
   )

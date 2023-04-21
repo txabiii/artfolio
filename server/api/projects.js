@@ -19,7 +19,9 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const result = await sql`SELECT * FROM projects WHERE project_id = ${req.params.id}`;
+    const query = sql`SELECT * FROM projects WHERE project_id = ${req.params.id}`;
+    console.log(query)
+    const result = await query
     res.send(result);
   } catch (error) {
     console.error(error);

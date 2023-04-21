@@ -3,11 +3,43 @@ const router = express.Router();
 
 const sql = require('../db');
 
-// Select all products
+// Select products with optional filters
 
 router.get('/', async (req, res) => {
-  try {
-    const result = await sql`select p.*, sale_percent from products p left join product_sale ps ON p.product_id = ps.product_id order by p.product_id asc`;
+  try {    
+    let query = sql`
+    select p.*, sale_percent, pc.category_id
+      from products p 
+      left join product_sale ps ON p.product_id = ps.product_id
+      left join product_category pc ON p.product_id = pc.product_id`;;
+
+    if (req.query.category_id) {
+      const categoryIds = req.query.category_id.split(',').map(Number);
+      query = sql`${query} WHERE pc.category_id = ANY(${categoryIds})`;
+    }
+
+    if(req.query.search) {
+      const search = req.query.search;
+      if(req.query.category_id) {
+        query = sql`${query} AND (p.product_name ilike '%' || ${search} || '%' or p.product_description ilike '%' || ${search} || '%')`
+      } else {
+        query = sql`${query} WHERE (p.product_name ilike '%' || ${search} || '%' or p.product_description ilike '%' || ${search} || '%')`
+      }
+    }
+
+    if(req.query.min_price && req.query.max_price) {
+      const min = req.query.min_price;
+      const max = req.query.max_price;
+      if(req.query.category_id || req.query.search) {
+        query = sql`${query} AND (p.price >= ${min} and p.price <= ${max})`
+      } else {
+        query = sql`${query} WHERE (p.price >= ${min} and p.price <= ${max})`
+      }
+    }
+
+    query = sql`${query} order by p.product_id asc`;
+
+    const result = await query;
     res.send(result);
   } catch (error) {
     console.error(error);

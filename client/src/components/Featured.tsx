@@ -12,6 +12,7 @@ import { Product } from '@root/utils/interfaces'
 
 export default function Featured() {
   const [mode, setMode] = useState('on-sale')
+  const [dataHasNotLoaded, setDataHasNotLoaded] = useState(true);
 
   /** Get on-sale producs */
   const [onSale, setOnSale] = useState<Product[]>([])
@@ -25,7 +26,8 @@ export default function Featured() {
   useEffect(()=>{
     async function fetchData() {
       const onSale = await getSaleProducts();
-      setOnSale(onSale);
+      setOnSale(onSale);      
+      setDataHasNotLoaded(false);
 
       const topPicks = await getTopProducts();
       setTopPicks(topPicks);
@@ -45,6 +47,15 @@ export default function Featured() {
           <Button content='New Arrivals' click={() => setMode('new-arrivals')} variant={mode === 'new-arrivals' ? 'primary' : 'tertiary'}/>
         </div>
         {mode === 'on-sale' && <div className={cx(styles.featuredProducts)}>
+          {/* skeletons */}
+          { dataHasNotLoaded && 
+            <>
+              <div className={styles.productCardSkeleton}><div></div><div></div></div>
+              <div className={styles.productCardSkeleton}><div></div><div></div></div>
+              <div className={styles.productCardSkeleton}><div></div><div></div></div>
+              <div className={styles.productCardSkeleton}><div></div><div></div></div>
+            </>
+          }
           {onSale.map((product)=>(
             <div key={product.product_id}>
               <ProductCard product={product} />
