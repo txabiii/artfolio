@@ -4,13 +4,17 @@ import Contact from "@root/components/Contact"
 import Catalog from "@root/components/Catalog"
 import styles from '@root/styles/catalogPage.module.scss'
 
-import { useSearchParams } from 'next/navigation';
-
 import { NavbarContext } from '@root/context/NavbarContextProvider';
 
 import { useEffect, useContext } from "react";
 
+import scrollToTop from "@root/utils/scrollToTop";
+
 export default function CatalogPage() {
+  useEffect(() => {
+    scrollToTop();
+  },[]);
+
   /** Navbar context */
   const { setMode, setIsAlwaysVisible, setIsHiddenMenuVisible } = useContext(NavbarContext);
 

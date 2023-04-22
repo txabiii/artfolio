@@ -16,6 +16,8 @@ import { NavbarContext } from '@root/context/NavbarContextProvider';
 import { getAllProjects } from '@root/api/projectsClient';
 import { getCategories } from '@root/api/productsClient';
 
+import { useRouter } from 'next/navigation';
+
 import Link from 'next/link';
 
 interface Category {
@@ -24,6 +26,8 @@ interface Category {
 }
 
 export default function Navbar (): JSX.Element {
+  const router = useRouter();
+
   const navbar = useRef<HTMLDivElement>(null);
 
   /** Navbar Context */
@@ -119,6 +123,9 @@ export default function Navbar (): JSX.Element {
     fetchData();
   }, [])
 
+  /** For the search bar */
+  const [search, setSearch] = useState('')
+
   return(
     <>
       { isNavbarVisible && <div>
@@ -175,7 +182,17 @@ export default function Navbar (): JSX.Element {
               </ul>
             </div>
             <div className={styles.search}>
-              <input type='text' placeholder='Search for an item...' />
+              <input 
+                type='text' 
+                placeholder='Search for an item...'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}  
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    router.push(`/shop/catalog?search=${search}`)
+                  }
+                }}
+              />
             </div>
           </div>
         </div>

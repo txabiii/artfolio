@@ -6,4 +6,6 @@ export interface Product {
   url: string;
   price: number;
   sale_percent?: number;
+  feature_description?: string;
+  category_id?: number;
 }

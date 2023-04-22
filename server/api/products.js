@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     select p.*, sale_percent, pc.category_id
       from products p 
       left join product_sale ps ON p.product_id = ps.product_id
-      left join product_category pc ON p.product_id = pc.product_id`;;
+      left join product_category pc ON p.product_id = pc.product_id`;
 
     if (req.query.category_id) {
       const categoryIds = req.query.category_id.split(',').map(Number);
@@ -37,6 +37,15 @@ router.get('/', async (req, res) => {
       }
     }
 
+    if(req.query.image_id) {
+      const imageId = req.query.image_id;
+      if(req.query.category_id || req.query.search || (req.query.min_price && req.query.max_price)) {
+        query = sql`${query} AND p.image_id = ${imageId}`
+      } else {
+        query = sql`${query} WHERE p.image_id = ${imageId}`
+      }
+    }
+
     query = sql`${query} order by p.product_id asc`;
 
     const result = await query;
@@ -44,6 +53,24 @@ router.get('/', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal server error');
+  }
+});
+
+// Select a product and its features
+
+router.get('/product/:id', async (req, res) => {
+  try {
+    const result = await sql`
+      select p.*, f.feature_description, pc.category_id
+      from products p
+      inner join product_category pc on pc.product_id = p.product_id 
+      left join category_feature cf on cf.category_id = pc.category_id
+      left join features f on f.feature_id = cf.feature_id
+      where p.product_id = ${req.params.id}`
+    res.send(result);
+  } catch(error) {
+    console.error(error);
+    res.status(500).send('Internal server error')
   }
 });
 
@@ -94,5 +121,27 @@ router.get('/categories', async (req, res) => {
     res.status(500).send('Internal server error');
   }
 });
+
+// Select related products
+
+router.get('/related', async (req, res) => {
+  try {
+    const productId = req.query.product_id;
+    const categoryId = req.query.category_id;
+
+    const result = await sql`
+    SELECT *
+    FROM products p
+    LEFT JOIN product_category pc ON pc.product_id = p.product_id
+    WHERE p.product_id != ${productId}
+    ORDER BY CASE WHEN pc.category_id = ${categoryId} THEN 0 ELSE 1 END, RANDOM()
+    LIMIT 4;
+    `;
+    res.send(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
+  }
+})
 
 module.exports = router;

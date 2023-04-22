@@ -44,13 +44,25 @@ export default function Catalog() {
 
   useEffect(()=>{
     const categoryId = searchParams.get('category_id');
-    let otherName: number[] = [];
+    const image_id = searchParams.get('image_id');
+    const search = searchParams.get('search')
+
+    let imageIdFromParams: number | null = null;
+    let categoryIdFromParams: number[] = [];
+    let searchFromParams = '';
+
     if(categoryId) {
-      otherName.push(parseInt(categoryId))
+      categoryIdFromParams.push(parseInt(categoryId))
+    }
+    if(image_id) {
+      imageIdFromParams = parseInt(image_id);
+    }
+    if(search) {
+      searchFromParams = search;
     }
 
     async function fetchData() {
-      const allProducts = await getAllProducts({categoryIds: otherName});
+      const allProducts = await getAllProducts({categoryIds: categoryIdFromParams, imageId: imageIdFromParams, search: searchFromParams});
       setProducts(allProducts);
       setDataHasNotLoaded(false);
     }
@@ -126,6 +138,11 @@ export default function Catalog() {
             type='text' 
             placeholder='Search for an item...' 
             onChange={(e) => setSearch(e.target.value)}  
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleFilterClick()
+              }
+            }}
           />
           <legend><h5>Categories</h5></legend>
           {/* Categories */}

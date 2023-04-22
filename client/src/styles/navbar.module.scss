@@ -8,7 +8,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 3;
+  z-index: 5;
   transition: transform 400ms ease-out;
 }
 
@@ -92,7 +92,7 @@
 
   ul {
   display: flex;
-  gap: 80px;
+  gap: 4rem;
 
     li { text-transform: uppercase; }
   }

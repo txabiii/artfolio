@@ -4,6 +4,6 @@
 
 @media only screen and (max-width: 600px) {
   .pageWrapper {
-    padding-top: 17rem !important;
+    padding-top: calc(50px + 8.25rem + var(--side-margin)) !important;
   }
 }
