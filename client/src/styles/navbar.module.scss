@@ -8,7 +8,7 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 3;
+  z-index: 5;
   transition: transform 400ms ease-out;
 }
 
@@ -52,14 +52,30 @@
 .navbarLeft {
   .navbarOptions {
     display: flex;
-    gap: 50px;
+    gap: 3.5rem;
     font-size: 1.6rem;
     transition: all 0.3s;
+
+    li {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 
 .hidden {
   display: none !important;
+}
+
+.emptyElement {
+  flex: 1;
+}
+
+.cartIcon {
+  height: 1.6rem;
+  width: auto;
+  cursor: pointer;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(200deg) brightness(102%) contrast(102%);
 }
 
 .navbarBottom {
@@ -76,7 +92,7 @@
 
   ul {
   display: flex;
-  gap: 80px;
+  gap: 4rem;
 
     li { text-transform: uppercase; }
   }
@@ -92,18 +108,24 @@
 
   input {
     width: 100%;
-    border: none;
-    border-radius: 15px;
-    padding-left: 10px;
-    height: 30px;
+    border: none;    
+    height: 100%;
+    border-radius: 3rem;
+    font-size: 1rem;
+    padding-left: 1rem;
   }
 }
 
-.hamburgerMenu {
+.hiddenIcons {
   display: none;
+  cursor: pointer;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
+  .cartIcon {
+    height: 3.5rem;
+    margin-right: 1.5rem;
+  }
   .navbarLeft {
     width: 100%;
     position: absolute;
@@ -119,11 +141,21 @@
       align-items: center;
       gap: 10px !important;
       font-size: 2rem !important;
+
+      .cartLink {
+        display: none;
+      }
     }
   }
 
   .search {
     padding: 0;
+
+    input {
+      padding: 0.6rem 1.2rem;
+      font-size: 1.8rem;
+      height: 3rem;
+    }
   }
 
   .navbarBottom {
@@ -136,8 +168,13 @@
     }
   }
 
-  .hamburgerMenu {
-    display: block;
+  .hiddenIcons {
+    display: flex;
+    align-items: center;
     font-size: 3.5rem;
+  }
+
+  .hiddenIcons:first-of-type {
+    display: none !important;
   }
 }

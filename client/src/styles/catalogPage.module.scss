@@ -1,0 +1,9 @@
+.pageWrapper {
+  padding-top: 8rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .pageWrapper {
+    padding-top: calc(50px + 8.25rem + var(--side-margin)) !important;
+  }
+}

@@ -3,12 +3,13 @@
 import styles from '../styles/projectPreview.module.scss'
 
 import Button from '../components/Button'
+import IconButton from './IconButton';
 
 import Image from 'next/image'
 import Link from 'next/link';
 import dynamic from 'next/dynamic'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import { getImagesByProject } from '@root/api/imagesClient';
 
@@ -37,6 +38,31 @@ export default function ProjectPreview({ projectData } : any): JSX.Element {
     setIsImageViewVisible(true);
   }
 
+  /** For the left and right arrow buttons */
+  const imagesRef = useRef<HTMLDivElement>(null)
+
+  function handleLeftArrowClick() {
+    if(imagesRef.current) {
+      const firstImage = imagesRef.current.firstChild as HTMLElement;
+      const imageWidth = firstImage.offsetWidth;
+      imagesRef.current.scrollTo({
+        left: imagesRef.current.scrollLeft - imageWidth,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  function handleRightArrowClick() {
+    if(imagesRef.current) {
+      const firstImage = imagesRef.current.firstChild as HTMLElement;
+      const imageWidth = firstImage.offsetWidth;
+      imagesRef.current.scrollTo({
+        left: imagesRef.current.scrollLeft + imageWidth,
+        behavior: 'smooth'
+      });
+    }
+  }
+
   return (
     <>
       { isImageViewVisible && <ImageView id={imageId} show={isImageViewVisible} setShow={setIsImageViewVisible}/>}
@@ -50,7 +76,7 @@ export default function ProjectPreview({ projectData } : any): JSX.Element {
           </div>
           <p>{ projectData.description }</p>
         </div>
-        <div className={styles.projectImages}>
+        <div className={styles.projectImages} ref={imagesRef}>
           {
             images.map((item : any, index)=>{return(
               <div key={index} className={styles.imgWrapper}>
@@ -58,6 +84,12 @@ export default function ProjectPreview({ projectData } : any): JSX.Element {
               </div>
             )})
           }
+        </div>
+        <div className={styles.arrowButton} onClick={handleLeftArrowClick}>
+          <IconButton icon='left-arrow' variant='secondary'/>
+        </div>
+        <div className={styles.arrowButton} onClick={handleRightArrowClick}>
+          <IconButton icon='right-arrow' variant='secondary'/>
         </div>
       </div>
     </>

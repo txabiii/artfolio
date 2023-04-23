@@ -7,7 +7,12 @@ const sql = require('../db');
 
 router.get('/image/:id', async (req, res) => {
   try {
-    const result = await sql`SELECT * FROM images WHERE image_id = ${req.params.id}`;
+    const result = await sql`
+      SELECT i.*, COUNT(p.product_id) > 0 AS has_product 
+      FROM images i
+      LEFT JOIN products p ON i.image_id = p.image_id
+      WHERE i.image_id = ${req.params.id}
+      GROUP BY i.image_id`;
     res.send(result);
   } catch (error) {
     console.error(error);
@@ -20,7 +25,13 @@ router.get('/image/:id', async (req, res) => {
 router.get('/:id/:max?', async (req, res) => {
   try {
     const limit = req.params.max || 10000;
-    const result = await sql`SELECT * FROM images WHERE project_id = ${req.params.id} LIMIT ${limit}`;
+    const result = await sql`
+      SELECT i.*, COUNT(p.product_id) > 0 AS has_product 
+      FROM images i
+      LEFT JOIN products p ON i.image_id = p.image_id
+      WHERE project_id = ${req.params.id} 
+      GROUP BY i.image_id
+      LIMIT ${limit}`;
     res.send(result);
   } catch (error) {
     console.error(error);

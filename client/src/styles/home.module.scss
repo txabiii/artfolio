@@ -6,15 +6,9 @@
   padding-left: var(--side-margin);
   padding-right: var(--side-margin);
   padding-bottom: calc(var(--border-radius) + var(--side-margin));
-
-  h1 {
-    font-size: 5rem;
-    line-height: 5rem;
-    color: white;
-  }
+  color: white;
 
   p {
-    color: white;
     margin-top: 10px;
     font-size: 1.5rem;
     line-height: 1.5rem;
@@ -45,6 +39,11 @@
   flex-direction: column;
 
   .heroDetails {
+    h1 > span {
+      color: rgb(var(--pink-rgb));
+      font-family: 'Roboto Slab', serif;
+    }
+    
     p {
       line-height: 2rem;
       color: rgb(var(--white-3-rgb));
@@ -55,14 +54,12 @@
   .heroButtonGroup {
     display: flex;
     gap: 10px;
+
+    div {
+      flex: 1;
+    }
   }
 }
-
-.highlight {
-  color: rgb(var(--pink-rgb));
-  font-family: 'Roboto Slab', serif;
-}
-
 .heroImages {
   min-height: 30rem;
   position: relative;
@@ -74,8 +71,8 @@
 
   img {
     position: absolute;
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
   }
 }
 
@@ -98,7 +95,7 @@
   }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1200px) {
   .heroContainer {
     height: calc(100svh + var(--border-radius));
   }
@@ -108,7 +105,7 @@
     flex-direction: row-reverse;
 
     .heroDetailsWrapper {
-      justify-content: center;
+      justify-content: flex-end;
       flex: 3;
     }
 
@@ -119,15 +116,6 @@
         height: auto;
         width: 100%;
       }
-    }
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  .hero {
-    .heroDetailsWrapper {
-      justify-content: flex-end;
-      flex: 3;
     }
   }
 }

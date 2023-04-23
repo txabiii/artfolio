@@ -8,6 +8,7 @@ export default function Button ({ variant = 'primary', content = 'Button', mini 
       cx(styles.general,
         {[styles.primary] : variant === 'primary'},
         {[styles.secondary] : variant === 'secondary'},
+        {[styles.tertiary] : variant === 'tertiary'},
         {[styles.mini] : mini}  
       )}>
       { content }

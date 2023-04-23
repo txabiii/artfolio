@@ -28,5 +28,8 @@ app.use('/images', images)
 const messages = require('./api/messages');
 app.use('/messages', messages)
 
+const products = require('./api/products');
+app.use('/products', products)
+
 const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`Server is listening on port ${port}.`))
