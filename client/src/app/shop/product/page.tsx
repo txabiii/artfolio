@@ -89,6 +89,18 @@ export default function ProductPage(){
     }
   };
 
+  function handleDocumentTouchMove(event: TouchEvent) {
+    event.preventDefault(); // prevent scrolling of the webpage
+  }
+  
+  function handleTouchStart() {
+    document.addEventListener('touchmove', handleDocumentTouchMove, { passive: false });
+  }
+  
+  function handleTouchEnd() {
+    document.removeEventListener('touchmove', handleDocumentTouchMove);
+  }  
+
   const detectTouchDevice = () => {
     if ('ontouchstart' in window) {
       setIsTouchDevice(true);
@@ -119,6 +131,8 @@ export default function ProductPage(){
       <main className={styles.main}>
       <div
           className={styles.imgWrapper}
+          onTouchStart={handleTouchStart} 
+          onTouchEnd={handleTouchEnd}
           onMouseMove={!isTouchDevice ? handleMouseHover : undefined}
           onTouchMove={isTouchDevice ? handleTouchMove : undefined}
           onMouseOut={handleMousOut}

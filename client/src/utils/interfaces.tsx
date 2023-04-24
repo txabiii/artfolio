@@ -9,3 +9,8 @@ export interface Product {
   feature_description?: string;
   category_id?: number;
 }
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}

@@ -1,0 +1,31 @@
+.cartHeader {
+  padding: var(--side-margin);
+  padding-top: calc(50px + 8.25rem + var(--side-margin)*2);
+  background-color: rgb(var(--blue-2-rgb));
+  color: white;
+  border-radius: 0px 0px var(--border-radius) var(--border-radius);
+  position: fixed;
+  width: 100vw;
+
+  p {
+    color: rgb(var(--white-2-rgb));
+  }
+}
+
+.cartDetails {
+  margin-top: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.amount {
+  display: flex;
+  gap: 1.2rem;
+  align-self: flex-end;
+}
+
+@media only screen and (min-width: 600px) {
+  .cartHeader {
+    padding-top: calc(50px + 4.6rem + var(--side-margin)) !important;
+  }
+}
