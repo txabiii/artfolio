@@ -15,7 +15,7 @@ export default function Footer() {
       <div className={styles.imgContainer}>
         <div className={styles.imgWrapper}>
           <Link href="/">
-            <Image src={Logo} alt='Website&apos;s logo' fill={true}/>
+            <Image src={Logo} alt='Website&apos;s logo' fill={true} sizes='auto'/>
           </Link>
         </div>
       </div>
