@@ -13,4 +13,5 @@ export interface Product {
 export interface CartItem {
   product: Product;
   quantity: number;
+  displayed_quantity: string;
 }

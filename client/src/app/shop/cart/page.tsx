@@ -1,12 +1,29 @@
 'use client';
 
+import { useSelector, useDispatch } from 'react-redux';
+import cartSlice from '@root/store/cartSlice';
+import { RootState } from '@root/store/store';
+
+import Image from 'next/image';
+import Button from '@root/components/Button';
 import styles from '@root/styles/cartPage.module.scss'
 
 import { NavbarContext } from '@root/context/NavbarContextProvider';
 
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useRef, useState } from 'react';
+
+import { useRouter } from 'next/navigation';
 
 export default function CartPage() {
+  const { cartItems } = useSelector((state: RootState) => state.cart);
+  const dispatch = useDispatch();
+  const removeFromCart = cartSlice.actions.removeFromCart;
+  const clearCart = cartSlice.actions.clearCart;
+  const setQuantity = cartSlice.actions.setQuantity
+  const changeQuantity = cartSlice.actions.changeQuantity;
+
+  const router = useRouter();
+
   /** Navbar context */
   const { setMode, setIsAlwaysVisible, setIsHiddenMenuVisible } = useContext(NavbarContext);
 
@@ -16,19 +33,113 @@ export default function CartPage() {
     setIsAlwaysVisible(true)
   }, [])
 
+  /** displayed value */
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return(
     <div>
       <div className={styles.cartHeader}>
-        <p>Back to shopping</p>
         <div className={styles.cartDetails}>
-          <h5>Your cart</h5>
+          <div className={styles.cartDetailsLeft}>
+            <p>Back to shopping</p>
+            <h5>Your cart</h5>
+          </div>
           <div className={styles.amount}>
             <p>Subtotal</p>
-            <h5>$161.00</h5>
+            <h5>${cartItems.reduce(
+              (total, item) => total + (item.product.price * item.quantity),
+              0
+            ).toFixed(2)}</h5>
           </div>
         </div>
       </div>
-      <div style={{height:'1000px'}}></div>
+      <div className={styles.cartContent}>
+        { cartItems && cartItems.length > 0 && 
+        <>
+          <table>
+            <thead>
+              <tr>
+                <th style={{width:'40%'}}>Product</th>
+                <th style={{width:'18%'}}>Price</th>
+                <th style={{width:'18%'}}>Quantity</th>
+                <th style={{width:'18%'}}>Total</th>
+                <th style={{width:'9%'}}></th>
+              </tr>
+            </thead>
+            <tbody>
+            {
+              cartItems.map((item, index)=>(
+                <tr key={index}>
+                  <td>
+                    <div className={styles.imgWrapper}>
+                      <Image src={item.product.url} alt='' fill={true}/>
+                    </div>
+                    <h6>{item.product.product_name}</h6>
+                  </td>
+                  <td><h6>${item.product.price}</h6></td>
+                  <td>
+                    <div className={styles.quantityGroup}>
+                    <button 
+                        className={styles.quantityButton} 
+                        onClick={() => dispatch(changeQuantity({productId: item.product.product_id, increment: true}))}>
+                          +
+                      </button>
+                      <input 
+                        type="number" 
+                        min={0} 
+                        max={100} 
+                        ref={inputRef}
+                        onChange={(e) => {
+                          dispatch(setQuantity({productId: item.product.product_id, newQuantity: parseInt(e.target.value)}))}
+                        }
+                        value={item.displayed_quantity}
+                      />
+                      {/* <h5>{ item.quantity }</h5> */}
+                      <button 
+                        className={styles.quantityButton} 
+                        onClick={() => dispatch(changeQuantity({productId: item.product.product_id, increment: false}))}>
+                          -
+                      </button>
+                    </div>
+                  </td>
+                  <td><h6>${(item.product.price * item.quantity).toFixed(2)}</h6></td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        dispatch(
+                          removeFromCart(item.product.product_id)
+                        )
+                      }}
+                    >
+                      <h6>╳</h6>
+                    </button>
+                  </td>
+                </tr>
+              ))
+            }
+            </tbody>
+          </table>
+          <div className={styles.buttonGroup}>
+            <Button 
+              content="CLear cart" 
+              variant="tertiary"
+              click={() => dispatch(
+                  clearCart()
+              )}
+            />
+            <Button content="Proeed to checkout" variant="primary" />
+          </div>
+        </>
+        }
+        {
+          !cartItems || cartItems.length === 0 &&
+          <div className={styles.emptyCart}>
+            <h2>¯\_(ツ)_/¯</h2>
+            <h5>No items in the cart</h5>
+            <Button content="View catalog" click={() => router.push('/shop/catalog')} />
+          </div>
+        }
+      </div>
     </div>
   )
 }

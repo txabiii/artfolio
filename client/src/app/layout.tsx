@@ -5,20 +5,25 @@ import Navbar from '@root/components/Navbar'
 import Footer from '@root/components/Footer'
 import { NavbarContextProvider } from '@root/context/NavbarContextProvider'
 
+import { Provider } from 'react-redux';
+import store from '@root/store/store'
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <NavbarContextProvider>
+    <Provider store={store}>
       <html lang="en">
         <body>
-          <Navbar />
-          {children}
-          <Footer />
+          <NavbarContextProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </NavbarContextProvider>
         </body>
       </html>
-    </NavbarContextProvider>
+    </Provider>
   )
 }

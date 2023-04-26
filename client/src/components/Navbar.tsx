@@ -154,16 +154,20 @@ export default function Navbar (): JSX.Element {
                 <li onClick={handleContactClick}>Contact</li>
                 { mode === 'shop' && 
                   <>
-                    <li className={styles.cartLink}>
-                      Cart
-                      <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
-                    </li>
+                    <Link href='/shop/cart'>
+                      <li className={styles.cartLink}>
+                        Cart
+                        <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
+                      </li>
+                    </Link>
                   </>
                 }
               </ul>}
             </div> 
             { mode === 'shop' && <div className={styles.hiddenIcons}>
-              <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
+              <Link href='/shop/cart'>
+                <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
+              </Link>
             </div>}
             <div className={styles.hiddenIcons} onClick={handleMenuClick}>☰</div>
           </div>

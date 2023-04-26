@@ -1,5 +1,8 @@
 'use client';
 
+import { useDispatch } from 'react-redux';
+import cartSlice from '@root/store/cartSlice';
+
 import { Product } from '@root/utils/interfaces'
 import scrollToTop from '@root/utils/scrollToTop';
 
@@ -50,6 +53,10 @@ export default function ProductPage(){
     fetchData();
     scrollToTop();
   }, [searchParams])
+
+  /** Add to cart */
+  const addToCart = cartSlice.actions.addToCart;
+  const dispatch = useDispatch();
 
   /** Product zoom in */
   const imageRef: RefObject<HTMLImageElement> = useRef(null);
@@ -154,7 +161,12 @@ export default function ProductPage(){
           </div>
           <div>
             <h4>${ productData?.price }</h4>
-            <Button content='Add to cart' variant='secondary' />
+            <Button 
+              content='Add to cart' 
+              variant='secondary' 
+              click={()=> dispatch(
+                addToCart({product: productData, quantity: 1, displayed_quantity: '1'})
+              )}/>
           </div>
         </div>}
       </main>

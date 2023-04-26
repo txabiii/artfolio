@@ -1,3 +1,6 @@
+import { useDispatch } from 'react-redux';
+import cartSlice from '@root/store/cartSlice';
+
 import Image from "next/image"
 import IconButton from "./IconButton"
 
@@ -10,6 +13,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 
 export default function ProductCard({ product }: { product: Product}) {
+  /** Initalize and display data */
   const [salePrice, setSalePrice] = useState<number | null>(null)
 
   useEffect(()=>{
@@ -21,6 +25,12 @@ export default function ProductCard({ product }: { product: Product}) {
     }
   }, [])
 
+  /** Add to cart */
+  const addToCart = cartSlice.actions.addToCart;
+  const dispatch = useDispatch();
+
+  /** For routing */
+
   const router = useRouter();
 
   return(
@@ -31,7 +41,7 @@ export default function ProductCard({ product }: { product: Product}) {
         </div>
       }
       <div className={styles.imgWrapper} onClick={() => router.push(`/shop/product?product_id=${product.product_id}`)}>
-        <Image src={product.url} alt='' fill={true} />
+        <Image src={product.url} alt='' fill={true} sizes='auto'/>
       </div>
       <div className={styles.productDetailsWrapper}>
         <div className={styles.productDetails}>
@@ -43,7 +53,13 @@ export default function ProductCard({ product }: { product: Product}) {
         </div>
       </div>
       <div className={styles.iconWrapper}>
-        <IconButton icon='bag' variant='secondary' click={()=>{console.log('to be created')}}/>
+        <IconButton 
+          icon='bag' 
+          variant='secondary' 
+          hoverColor={true} 
+          click={() => dispatch(
+            addToCart({product, quantity: 1, displayed_quantity: '1'})
+          )}/>
       </div>
     </div>
   )
