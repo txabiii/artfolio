@@ -44,7 +44,7 @@ export default function ProductCard({ product }: { product: Product}) {
         </div>
       }
       <div className={styles.imgWrapper} onClick={() => router.push(`/shop/product?product_id=${product.product_id}`)}>
-        <Image src={product.url} alt='' fill={true} sizes='auto'/>
+        <Image src={product.url} alt='' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
       </div>
       <div className={styles.productDetailsWrapper}>
         <div className={styles.productDetails}>

@@ -136,7 +136,7 @@ export default function Navbar (): JSX.Element {
             <div className={styles.navbarRight}>
               <div className={styles.imgWrapper}>        
                 <Link href={ mode === 'artfolio' ? '/' : '/shop'}>
-                  <Image src={Logo} alt='Website&apos;s logo' fill={true} sizes='auto'/>
+                  <Image src={Logo} alt='Website&apos;s logo' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
                 </Link>
               </div>
               <div className={styles.mode}>{ mode }</div>

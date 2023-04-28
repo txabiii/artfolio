@@ -13,6 +13,7 @@ import { NavbarContext } from '@root/context/NavbarContextProvider';
 import { useEffect, useContext, useRef } from 'react';
 
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function CartPage() {
   const { cartItems } = useSelector((state: RootState) => state.cart);
@@ -38,7 +39,7 @@ export default function CartPage() {
       <div className={styles.cartHeader}>
         <div className={styles.cartDetails}>
           <div className={styles.cartDetailsLeft}>
-            <p>back to shopping</p>
+            <Link href='/shop/catalog'><p>back to shopping</p></Link>
             <h5>Your cart</h5>
           </div>
           <div className={styles.amount}>
@@ -70,7 +71,7 @@ export default function CartPage() {
                   <tr key={index}>
                     <td>
                       <div className={styles.imgWrapper}>
-                        <Image src={item.product.url} alt='' fill={true} sizes='auto'/>
+                        <Image src={item.product.url} alt='' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
                       </div>
                       <h6>{item.product.product_name}</h6>
                     </td>
@@ -124,7 +125,7 @@ export default function CartPage() {
               cartItems.map((item, index) => (
                 <div key={index} className={styles.mobileCartItem}>
                   <div className={styles.imgWrapper}>
-                    <Image src={item.product.url} alt='' fill={true} sizes='auto'/>
+                    <Image src={item.product.url} alt='' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
                   </div>
                   <div className={styles.itemDetails}>
                     <h5>{item.product.product_name}</h5>

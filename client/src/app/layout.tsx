@@ -18,6 +18,9 @@ export default function RootLayout({
       <html lang="en">
         <head>
           <title>Txabi's Artfolio</title>
+          <meta name="description" content="This is Txabi's Artfolio website, showcasing his artwork and creative projects." />
+          <meta name="keywords" content="art, artist, portfolio, creative, projects" />
+          <meta name="author" content="Txabi Guerrero" />
         </head>
         <body>
           <NavbarContextProvider>

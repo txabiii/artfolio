@@ -149,7 +149,7 @@ export default function ProductPage(){
           onTouchMove={isTouchDevice ? handleTouchMove : undefined}
           onMouseOut={handleMousOut}
         >
-          { productData && <Image ref={imageRef} src={productData.url} alt='' fill={true} sizes='auto'/>}
+          { productData && <Image ref={imageRef} src={productData.url} alt='' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>}
         </div>
         { productData && <div className={styles.productDetails}>
           <div>

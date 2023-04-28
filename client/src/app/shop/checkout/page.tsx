@@ -17,7 +17,9 @@ import { useEffect, useContext, useRef, useState } from 'react'
 import { NavbarContext } from '@root/context/NavbarContextProvider';
 
 import scrollToTop from '@root/utils/scrollToTop';
+
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function CheckoutPage(){
   /** Router */
@@ -111,7 +113,7 @@ export default function CheckoutPage(){
       <div className={cx(styles.cartHeader, checkoutStyles.cartHeader)}>
         <div className={styles.cartDetails}>
           <div className={styles.cartDetailsLeft}>
-            <p>back to cart</p>
+            <Link href='/shop/cart'><p>back to cart</p></Link>
             <h5>Checkout</h5>
           </div>
           <div className={styles.amount}>

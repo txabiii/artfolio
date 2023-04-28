@@ -137,7 +137,7 @@ export default function Project({params}: {params: {projectId: number}}){
             {
               memoizedImages.map((image)=>{return(
                 <div key={image.image_id} className={styles.imgWrapper}>
-                  <Image src={image.url} alt="" fill={true} sizes={"auto, auto, auto"} onClick={() => hanndleImageClick(image.image_id)}/>
+                  <Image src={image.url} alt="" fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" onClick={() => hanndleImageClick(image.image_id)}/>
                 </div>
               )})
             }
