@@ -98,7 +98,7 @@ export default function ImageView({ show, setShow, id, goBack }: any): JSX.Eleme
         <div className={cx(styles.popup, {[styles.show] : render})}>
         <button className={styles.closePopup} onClick={handleClose}>╳</button>
           <div className={styles.imgWrapper}>
-            { imageData && <Image src={imageData.url} alt='' fill={true} />}
+            { imageData && <Image src={imageData.url} alt='' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>}
           </div>
           <div className={styles.imgDetails}>
             <div className={styles.header}>

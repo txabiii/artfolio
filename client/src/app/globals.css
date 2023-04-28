@@ -1,5 +1,5 @@
 /* My fonts */
-@import url(https://fonts.googleapis.com/css?family=Poppins:400,700);
+@import url(https://fonts.googleapis.com/css?family=Poppins:400,700,900);
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,900);
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab);
 
@@ -127,9 +127,14 @@ h4 {
   line-height: 2.3rem;
 }
 
-h5 {
+h5, th {
   font-size: 2rem;
   line-height: 2rem;
+}
+
+h6 {
+  font-size: 1.75rem;
+  line-height: 1.75rem;
 }
 
 p, label {

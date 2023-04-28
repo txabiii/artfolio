@@ -136,7 +136,7 @@ export default function Navbar (): JSX.Element {
             <div className={styles.navbarRight}>
               <div className={styles.imgWrapper}>        
                 <Link href={ mode === 'artfolio' ? '/' : '/shop'}>
-                  <Image src={Logo} alt='Website&apos;s logo' fill={true}/>
+                  <Image src={Logo} alt='Website&apos;s logo' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
                 </Link>
               </div>
               <div className={styles.mode}>{ mode }</div>
@@ -154,16 +154,20 @@ export default function Navbar (): JSX.Element {
                 <li onClick={handleContactClick}>Contact</li>
                 { mode === 'shop' && 
                   <>
-                    <li className={styles.cartLink}>
-                      Cart
-                      <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
-                    </li>
+                    <Link href='/shop/cart'>
+                      <li className={styles.cartLink}>
+                        Cart
+                        <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
+                      </li>
+                    </Link>
                   </>
                 }
               </ul>}
             </div> 
             { mode === 'shop' && <div className={styles.hiddenIcons}>
-              <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
+              <Link href='/shop/cart'>
+                <Image className={styles.cartIcon} src={CartIcon} alt='cart icon'/>
+              </Link>
             </div>}
             <div className={styles.hiddenIcons} onClick={handleMenuClick}>☰</div>
           </div>

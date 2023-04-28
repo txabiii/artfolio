@@ -1,12 +1,16 @@
 'use client';
 
+import { useDispatch } from 'react-redux';
+import cartSlice from '@root/store/cartSlice';
+
 import { Product } from '@root/utils/interfaces'
 import scrollToTop from '@root/utils/scrollToTop';
 
 import Image from 'next/image'
 import Button from '@root/components/Button';
-import styles from '@root/styles/productPage.module.scss'
+import styles from '@root/styles/productPage.module.scss';
 import ProductCard from '@root/components/ProductCard';
+import Alert from '@root/components/Alert';
 
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useEffect, useContext, useState, useRef } from 'react';
@@ -51,6 +55,10 @@ export default function ProductPage(){
     scrollToTop();
   }, [searchParams])
 
+  /** Add to cart */
+  const addToCart = cartSlice.actions.addToCart;
+  const dispatch = useDispatch();
+
   /** Product zoom in */
   const imageRef: RefObject<HTMLImageElement> = useRef(null);
 
@@ -89,6 +97,18 @@ export default function ProductPage(){
     }
   };
 
+  function handleDocumentTouchMove(event: TouchEvent) {
+    event.preventDefault(); // prevent scrolling of the webpage
+  }
+  
+  function handleTouchStart() {
+    document.addEventListener('touchmove', handleDocumentTouchMove, { passive: false });
+  }
+  
+  function handleTouchEnd() {
+    document.removeEventListener('touchmove', handleDocumentTouchMove);
+  }  
+
   const detectTouchDevice = () => {
     if ('ontouchstart' in window) {
       setIsTouchDevice(true);
@@ -114,16 +134,22 @@ export default function ProductPage(){
     fetchData();
   },[productData])
 
+  /** For handling add to cart */
+  const [showAlert, setShowAlert] = useState(false);
+
   return(
     <div>
+      { showAlert && <Alert title='Successfully added' message="1 product added to cart" variant="green" show={showAlert} setShow={setShowAlert} />}
       <main className={styles.main}>
       <div
           className={styles.imgWrapper}
+          onTouchStart={handleTouchStart} 
+          onTouchEnd={handleTouchEnd}
           onMouseMove={!isTouchDevice ? handleMouseHover : undefined}
           onTouchMove={isTouchDevice ? handleTouchMove : undefined}
           onMouseOut={handleMousOut}
         >
-          { productData && <Image ref={imageRef} src={productData.url} alt='' fill={true}/>}
+          { productData && <Image ref={imageRef} src={productData.url} alt='' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>}
         </div>
         { productData && <div className={styles.productDetails}>
           <div>
@@ -140,7 +166,15 @@ export default function ProductPage(){
           </div>
           <div>
             <h4>${ productData?.price }</h4>
-            <Button content='Add to cart' variant='secondary' />
+            <Button 
+              content='Add to cart' 
+              variant='secondary' 
+              click={()=> {
+                dispatch(
+                  addToCart({product: productData, quantity: 1, displayed_quantity: '1'})
+                );
+                setShowAlert(true);
+              }}/>
           </div>
         </div>}
       </main>

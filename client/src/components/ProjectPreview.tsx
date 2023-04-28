@@ -80,7 +80,7 @@ export default function ProjectPreview({ projectData } : any): JSX.Element {
           {
             images.map((item : any, index)=>{return(
               <div key={index} className={styles.imgWrapper}>
-                <Image src={item.url} alt="" fill={true} sizes="(max-width: 640px) auto, auto" onClick={() => hanndleImageClick(item.image_id)}/>
+                <Image src={item.url} alt="" fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" onClick={() => hanndleImageClick(item.image_id)}/>
               </div>
             )})
           }

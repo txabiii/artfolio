@@ -2,14 +2,15 @@ import styles from '../styles/alert.module.scss'
 import cx from 'classnames'
 import { useEffect, useState, useRef } from 'react'
 
-export default function Alert({ title = 'Alert', message = 'Insert message here', variant, show, setShow}: any){
+export default function Alert({ title = 'Alert', message = 'Insert message here', variant, show, setShow, permanent}: any){
   const alertRef = useRef<HTMLDivElement>(null)
 
   /** For automatic close alert */
   const[count, setCount] = useState(0);
 
   useEffect(()=>{
-    if(!show) return; // if the alert is not shown, don't fade out LMAO
+    if(permanent) return;
+    if(!show) return;
     if(count < 4000) {
       const timer = setTimeout(()=>{
         setCount(count + 100);
@@ -21,7 +22,8 @@ export default function Alert({ title = 'Alert', message = 'Insert message here'
   }, [count, show])
 
   return(
-    <div className={
+    <div
+      className={
       cx(styles.alert,
         {[styles.blue]: variant === 'blue'},
         {[styles.green]: variant === 'green'},

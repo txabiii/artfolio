@@ -119,6 +119,10 @@
 .hiddenIcons {
   display: none;
   cursor: pointer;
+
+  a {
+    display: flex;
+  }
 }
 
 @media only screen and (max-width: 600px) {

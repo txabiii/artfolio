@@ -1,5 +1,9 @@
+import { useDispatch } from 'react-redux';
+import cartSlice from '@root/store/cartSlice';
+
 import Image from "next/image"
 import IconButton from "./IconButton"
+import Alert from './Alert';
 
 import styles from '@root/styles/productCard.module.scss'
 import cx from 'classnames'
@@ -10,6 +14,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 
 export default function ProductCard({ product }: { product: Product}) {
+  /** Initalize and display data */
   const [salePrice, setSalePrice] = useState<number | null>(null)
 
   useEffect(()=>{
@@ -21,17 +26,25 @@ export default function ProductCard({ product }: { product: Product}) {
     }
   }, [])
 
+  /** Add to cart */
+  const addToCart = cartSlice.actions.addToCart;
+  const dispatch = useDispatch();
+
+  const [showAlert, setShowAlert] = useState(false);
+
+  /** For routing */
   const router = useRouter();
 
   return(
     <div className={styles.card}>
+      { showAlert && <Alert title='Successfully added' message="1 product added to cart" variant="green" show={showAlert} setShow={setShowAlert} />}
       { product.sale_percent && 
         <div className={styles.salePercent}>
           <p>-{ product.sale_percent }%</p>
         </div>
       }
       <div className={styles.imgWrapper} onClick={() => router.push(`/shop/product?product_id=${product.product_id}`)}>
-        <Image src={product.url} alt='' fill={true} />
+        <Image src={product.url} alt='' fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
       </div>
       <div className={styles.productDetailsWrapper}>
         <div className={styles.productDetails}>
@@ -43,7 +56,16 @@ export default function ProductCard({ product }: { product: Product}) {
         </div>
       </div>
       <div className={styles.iconWrapper}>
-        <IconButton icon='bag' variant='secondary' click={()=>{console.log('to be created')}}/>
+        <IconButton 
+          icon='bag' 
+          variant='secondary' 
+          hoverColor={true} 
+          click={() => {
+            dispatch(
+              addToCart({product, quantity: 1, displayed_quantity: '1'})
+            );
+            setShowAlert(true);
+          }}/>
       </div>
     </div>
   )
