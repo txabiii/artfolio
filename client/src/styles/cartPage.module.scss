@@ -7,7 +7,8 @@
   border-radius: 0px 0px var(--border-radius) var(--border-radius);
   position: fixed;
   width: 100%;
-  z-index: 2;
+  z-index: 2;  
+  filter: drop-shadow(0px 5px 5px rgba(0, 0, 0, 0.2)) !important;
 
   p {
     color: rgb(var(--white-2-rgb));
@@ -128,13 +129,16 @@
   justify-content: space-between;
   background-color: rgb(var(--white-2-rgb));
   height: 100%;
+  flex-grow: unset;
 
   input {
     border-radius: 1.2rem;
     border: none;
     font-size: 2rem;
-    width: 3rem;
+    width: 5rem;
     padding: 1rem;
+    height: 3rem;
+    text-align: center;
   }
 
   input::-webkit-outer-spin-button,
@@ -179,6 +183,11 @@
   .cartContent {
     padding: 0px 10%;
     padding-top: calc(var(--side-margin) + 50px + 12.95rem) !important;
+
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     table {
       width: 100%;

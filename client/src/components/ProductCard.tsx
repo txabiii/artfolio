@@ -3,6 +3,7 @@ import cartSlice from '@root/store/cartSlice';
 
 import Image from "next/image"
 import IconButton from "./IconButton"
+import Alert from './Alert';
 
 import styles from '@root/styles/productCard.module.scss'
 import cx from 'classnames'
@@ -29,12 +30,14 @@ export default function ProductCard({ product }: { product: Product}) {
   const addToCart = cartSlice.actions.addToCart;
   const dispatch = useDispatch();
 
-  /** For routing */
+  const [showAlert, setShowAlert] = useState(false);
 
+  /** For routing */
   const router = useRouter();
 
   return(
     <div className={styles.card}>
+      { showAlert && <Alert title='Successfully added' message="1 product added to cart" variant="green" show={showAlert} setShow={setShowAlert} />}
       { product.sale_percent && 
         <div className={styles.salePercent}>
           <p>-{ product.sale_percent }%</p>
@@ -57,9 +60,12 @@ export default function ProductCard({ product }: { product: Product}) {
           icon='bag' 
           variant='secondary' 
           hoverColor={true} 
-          click={() => dispatch(
-            addToCart({product, quantity: 1, displayed_quantity: '1'})
-          )}/>
+          click={() => {
+            dispatch(
+              addToCart({product, quantity: 1, displayed_quantity: '1'})
+            );
+            setShowAlert(true);
+          }}/>
       </div>
     </div>
   )

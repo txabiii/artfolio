@@ -8,8 +8,9 @@ import scrollToTop from '@root/utils/scrollToTop';
 
 import Image from 'next/image'
 import Button from '@root/components/Button';
-import styles from '@root/styles/productPage.module.scss'
+import styles from '@root/styles/productPage.module.scss';
 import ProductCard from '@root/components/ProductCard';
+import Alert from '@root/components/Alert';
 
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useEffect, useContext, useState, useRef } from 'react';
@@ -133,8 +134,12 @@ export default function ProductPage(){
     fetchData();
   },[productData])
 
+  /** For handling add to cart */
+  const [showAlert, setShowAlert] = useState(false);
+
   return(
     <div>
+      { showAlert && <Alert title='Successfully added' message="1 product added to cart" variant="green" show={showAlert} setShow={setShowAlert} />}
       <main className={styles.main}>
       <div
           className={styles.imgWrapper}
@@ -164,9 +169,12 @@ export default function ProductPage(){
             <Button 
               content='Add to cart' 
               variant='secondary' 
-              click={()=> dispatch(
-                addToCart({product: productData, quantity: 1, displayed_quantity: '1'})
-              )}/>
+              click={()=> {
+                dispatch(
+                  addToCart({product: productData, quantity: 1, displayed_quantity: '1'})
+                );
+                setShowAlert(true);
+              }}/>
           </div>
         </div>}
       </main>

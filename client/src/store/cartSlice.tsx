@@ -26,6 +26,8 @@ const cartSlice = createSlice({
 
       if(existingItemIndex !== -1) {
         state.cartItems[existingItemIndex].quantity += 1;
+        const displayedQuantity = parseInt(state.cartItems[existingItemIndex].displayed_quantity) + 1;
+        state.cartItems[existingItemIndex].displayed_quantity = displayedQuantity.toString();
       } else {
         const newCartItem: CartItem = { ...newItem, quantity: 1}
         state.cartItems.push(newCartItem)

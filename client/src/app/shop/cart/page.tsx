@@ -10,17 +10,14 @@ import styles from '@root/styles/cartPage.module.scss'
 
 import { NavbarContext } from '@root/context/NavbarContextProvider';
 
-import { useEffect, useContext, useRef, useState } from 'react';
+import { useEffect, useContext, useRef } from 'react';
 
 import { useRouter } from 'next/navigation';
 
 export default function CartPage() {
   const { cartItems } = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch();
-  const removeFromCart = cartSlice.actions.removeFromCart;
-  const clearCart = cartSlice.actions.clearCart;
-  const setQuantity = cartSlice.actions.setQuantity
-  const changeQuantity = cartSlice.actions.changeQuantity;
+  const { removeFromCart, clearCart, setQuantity, changeQuantity } = cartSlice.actions
 
   const router = useRouter();
 
@@ -179,7 +176,11 @@ export default function CartPage() {
                     clearCart()
                 )}
               />
-              <Button content="Proeed to checkout" variant="primary" />
+              <Button 
+                content="Proeed to checkout" 
+                variant="primary" 
+                click={() => router.push('/shop/checkout')}
+              />
             </div>
         </>
         }

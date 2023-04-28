@@ -16,6 +16,9 @@ export default function RootLayout({
   return (
     <Provider store={store}>
       <html lang="en">
+        <head>
+          <title>Txabi's Artfolio</title>
+        </head>
         <body>
           <NavbarContextProvider>
             <Navbar />
