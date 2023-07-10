@@ -1,6 +1,3 @@
-import { useDispatch } from 'react-redux';
-import cartSlice from '@root/store/cartSlice';
-
 import Image from "next/image"
 import IconButton from "./IconButton"
 import Alert from './Alert';
@@ -9,9 +6,11 @@ import styles from '@root/styles/productCard.module.scss'
 import cx from 'classnames'
 
 import { Product } from '@root/utils/interfaces'
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+
+import { CartContext } from '@root/context/CartContextProvider'
 
 export default function ProductCard({ product }: { product: Product}) {
   /** Initalize and display data */
@@ -26,14 +25,13 @@ export default function ProductCard({ product }: { product: Product}) {
     }
   }, [])
 
-  /** Add to cart */
-  const addToCart = cartSlice.actions.addToCart;
-  const dispatch = useDispatch();
-
   const [showAlert, setShowAlert] = useState(false);
 
   /** For routing */
   const router = useRouter();
+
+  /** For adding to cart */
+  const { addToCart } = useContext(CartContext);
 
   return(
     <div className={styles.card}>
@@ -59,13 +57,11 @@ export default function ProductCard({ product }: { product: Product}) {
         <IconButton 
           icon='bag' 
           variant='secondary' 
-          hoverColor={true} 
+          hoverColor={true}
           click={() => {
-            dispatch(
-              addToCart({product, quantity: 1, displayed_quantity: '1'})
-            );
-            setShowAlert(true);
-          }}/>
+            addToCart(product, 1);
+          }}
+          />
       </div>
     </div>
   )

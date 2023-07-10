@@ -1,9 +1,5 @@
 'use client';
 
-import { useSelector, useDispatch } from 'react-redux';
-import cartSlice from '@root/store/cartSlice';
-import { RootState } from '@root/store/store';
-
 import Image from 'next/image';
 import Button from '@root/components/Button';
 import styles from '@root/styles/cartPage.module.scss'
@@ -15,10 +11,10 @@ import { useEffect, useContext, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
+import { CartContext } from '@root/context/CartContextProvider';
+
 export default function CartPage() {
-  const { cartItems } = useSelector((state: RootState) => state.cart);
-  const dispatch = useDispatch();
-  const { removeFromCart, clearCart, setQuantity, changeQuantity } = cartSlice.actions
+  const { cartItems } = useContext(CartContext);
 
   const router = useRouter();
 
@@ -33,6 +29,9 @@ export default function CartPage() {
 
   /** displayed value */
   const inputRef = useRef<HTMLInputElement>(null);
+
+  /** For adding to cart */
+  const { addToCart, removeFromCart, updateDisplayedQuantity, updateProductQuantity, removeAllFromCart } = useContext(CartContext);
 
   return(
     <div>
@@ -79,8 +78,11 @@ export default function CartPage() {
                     <td>
                       <div className={styles.quantityGroup}>
                       <button 
-                          className={styles.quantityButton} 
-                          onClick={() => dispatch(changeQuantity({productId: item.product.product_id, increment: true}))}>
+                        className={styles.quantityButton}
+                        onClick={() => {
+                          addToCart(item.product, 1)
+                        }}
+                      >
                             +
                         </button>
                         <input 
@@ -89,14 +91,20 @@ export default function CartPage() {
                           max={100} 
                           ref={inputRef}
                           onChange={(e) => {
-                            dispatch(setQuantity({productId: item.product.product_id, newQuantity: parseInt(e.target.value)}))}
-                          }
+                            if(e.target.value === '' || parseInt(e.target.value) < 0 || !e.target.value || e.target.value === '0') {
+                              updateDisplayedQuantity(item.product)
+                              return;
+                            }
+                            updateProductQuantity(item.product, parseInt(e.target.value))
+                          }}
                           value={item.displayed_quantity}
                         />
-                        {/* <h5>{ item.quantity }</h5> */}
                         <button 
-                          className={styles.quantityButton} 
-                          onClick={() => dispatch(changeQuantity({productId: item.product.product_id, increment: false}))}>
+                          className={styles.quantityButton}
+                          onClick={() => {
+                            addToCart(item.product, -1)
+                          }}
+                        >
                             -
                         </button>
                       </div>
@@ -105,9 +113,7 @@ export default function CartPage() {
                     <td>
                       <button
                         onClick={() => {
-                          dispatch(
-                            removeFromCart(item.product.product_id)
-                          )
+                          removeFromCart(item.product.product_id)
                         }}
                       >
                         <h6>╳</h6>
@@ -143,9 +149,7 @@ export default function CartPage() {
                     </div>
                   </div>
                   <div className={styles.quantityGroup}>
-                      <button 
-                        className={styles.quantityButton} 
-                        onClick={() => dispatch(changeQuantity({productId: item.product.product_id, increment: true}))}>
+                      <button className={styles.quantityButton}>
                           +
                       </button>
                       <input 
@@ -153,15 +157,9 @@ export default function CartPage() {
                         min={0} 
                         max={100} 
                         ref={inputRef}
-                        onChange={(e) => {
-                          dispatch(setQuantity({productId: item.product.product_id, newQuantity: parseInt(e.target.value)}))}
-                        }
-                        value={item.displayed_quantity}
                       />
                       {/* <h5>{ item.quantity }</h5> */}
-                      <button 
-                        className={styles.quantityButton} 
-                        onClick={() => dispatch(changeQuantity({productId: item.product.product_id, increment: false}))}>
+                      <button>
                           -
                       </button>
                     </div>
@@ -171,16 +169,18 @@ export default function CartPage() {
           </div>
           <div className={styles.buttonGroup}>
               <Button 
-                content="CLear cart" 
+                content="Clear cart" 
                 variant="tertiary"
-                click={() => dispatch(
-                    clearCart()
-                )}
+                click={() => {
+                  removeAllFromCart()
+                }}
               />
               <Button 
                 content="Proeed to checkout" 
                 variant="primary" 
-                click={() => router.push('/shop/checkout')}
+                click={() => {
+                  router.push('/shop/checkout')
+                }}
               />
             </div>
         </>
