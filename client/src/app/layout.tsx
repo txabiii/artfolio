@@ -4,9 +4,7 @@ import './globals.css'
 import Navbar from '@root/components/Navbar'
 import Footer from '@root/components/Footer'
 import { NavbarContextProvider } from '@root/context/NavbarContextProvider'
-
-import { Provider } from 'react-redux';
-import store from '@root/store/store'
+import { CartContextProvider } from '@root/context/CartContextProvider';
 
 export default function RootLayout({
   children,
@@ -14,22 +12,22 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <Provider store={store}>
-      <html lang="en">
-        <head>
-          <title>Txabi's Artfolio</title>
-          <meta name="description" content="This is Txabi's Artfolio website, showcasing his artwork and creative projects." />
-          <meta name="keywords" content="art, artist, portfolio, creative, projects" />
-          <meta name="author" content="Txabi Guerrero" />
-        </head>
-        <body>
-          <NavbarContextProvider>
+    <html lang="en">
+      <head>
+        <title>Txabi's Artfolio</title>
+        <meta name="description" content="This is Txabi's Artfolio website, showcasing his artwork and creative projects." />
+        <meta name="keywords" content="art, artist, portfolio, creative, projects" />
+        <meta name="author" content="Txabi Guerrero" />
+      </head>
+      <body>
+        <NavbarContextProvider>
+          <CartContextProvider>
             <Navbar />
             {children}
             <Footer />
-          </NavbarContextProvider>
-        </body>
-      </html>
-    </Provider>
+          </CartContextProvider>
+        </NavbarContextProvider>
+      </body>
+    </html>
   )
 }

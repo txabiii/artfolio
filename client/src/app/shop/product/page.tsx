@@ -1,8 +1,5 @@
 'use client';
 
-import { useDispatch } from 'react-redux';
-import cartSlice from '@root/store/cartSlice';
-
 import { Product } from '@root/utils/interfaces'
 import scrollToTop from '@root/utils/scrollToTop';
 
@@ -16,6 +13,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import { useEffect, useContext, useState, useRef } from 'react';
 
 import { NavbarContext } from '@root/context/NavbarContextProvider';
+import { CartContext } from '@root/context/CartContextProvider'
 
 import { getProductAndFeatures, getRelatedProducts } from '@root/api/productsClient';
 
@@ -54,10 +52,6 @@ export default function ProductPage(){
     fetchData();
     scrollToTop();
   }, [searchParams])
-
-  /** Add to cart */
-  const addToCart = cartSlice.actions.addToCart;
-  const dispatch = useDispatch();
 
   /** Product zoom in */
   const imageRef: RefObject<HTMLImageElement> = useRef(null);
@@ -119,6 +113,9 @@ export default function ProductPage(){
     detectTouchDevice();
   }, []);
 
+  /** For adding to cart */
+  const { addToCart } = useContext(CartContext);
+
   /** For getting related products */
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
 
@@ -169,12 +166,10 @@ export default function ProductPage(){
             <Button 
               content='Add to cart' 
               variant='secondary' 
-              click={()=> {
-                dispatch(
-                  addToCart({product: productData, quantity: 1, displayed_quantity: '1'})
-                );
-                setShowAlert(true);
-              }}/>
+              click={() => {
+                addToCart(productData, 1);
+              }}
+            />
           </div>
         </div>}
       </main>

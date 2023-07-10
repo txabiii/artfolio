@@ -4,7 +4,7 @@ import cx from 'classnames'
 import Button from './Button'
 import ProductCard from './ProductCard'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 
 import { getNewArrivals, getSaleProducts, getTopProducts } from '@root/api/productsClient'
 

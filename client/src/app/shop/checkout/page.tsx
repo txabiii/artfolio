@@ -1,8 +1,5 @@
 'use client';
 
-import { useSelector } from 'react-redux';
-import { RootState } from '@root/store/store';
-
 import styles from '@root/styles/cartPage.module.scss';
 import checkoutStyles from '@root/styles/checkoutPage.module.scss';
 import cx from 'classnames'
@@ -15,6 +12,7 @@ import Alert from '@root/components/Alert';
 import { useEffect, useContext, useRef, useState } from 'react'
 
 import { NavbarContext } from '@root/context/NavbarContextProvider';
+import { CartContext } from '@root/context/CartContextProvider';
 
 import scrollToTop from '@root/utils/scrollToTop';
 
@@ -25,7 +23,7 @@ export default function CheckoutPage(){
   /** Router */
   const router = useRouter();
 
-  const { cartItems } = useSelector((state: RootState) => state.cart);
+  const { cartItems } = useContext(CartContext);
 
   /** Navbar context */
   const { setMode, setIsAlwaysVisible, setIsHiddenMenuVisible } = useContext(NavbarContext);
@@ -94,7 +92,7 @@ export default function CheckoutPage(){
 
     if(!hasEmptyString) {
       setAlertTitle('Thank you!');
-      setAlertMessage(`Thanks for interacting with the website. Rest assured no data has been submitted. For actual products you can go to redbubble.com or etsy.com. Once again, thank you!.`);
+      setAlertMessage(`Thanks for interacting with the website. Rest assured no data has been submitted in these forms. For actual products you can go to redbubble.com or etsy.com. Once again, thank you!`);
       setAlertVariant('green');
     } else {
       setAlertTitle('Form incomplete');
