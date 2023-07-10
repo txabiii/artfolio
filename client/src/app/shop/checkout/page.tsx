@@ -31,8 +31,6 @@ export default function CheckoutPage(){
   useEffect(()=>{
     scrollToTop();
 
-    if(cartItems.length === 0) router.push('/shop/cart')
-
     setIsHiddenMenuVisible(false)
     setMode('shop')
     setIsAlwaysVisible(true)
