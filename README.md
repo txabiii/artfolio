@@ -33,9 +33,7 @@ The website is deployed [here](https://artfolio-wiky.vercel.app/) at Vercel for 
 
 ## Created by
 
-```
-Disclaimer: Some art pieces are fanart of Genshin Impact characters. Their rights belong to their respective owners.
-```
+> :warning: Disclaimer: Some art pieces are fanart of Genshin Impact characters. Their rights belong to their respective owners.
 
 This website, its code, and art pieces were created by Txabi Guerrero. If you'd like to reach out you can email me at txabiguerrero2000@gmail.com.
 
