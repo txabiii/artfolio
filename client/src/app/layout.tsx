@@ -18,7 +18,10 @@ export default function RootLayout({
         <meta name="description" content="This is Txabi's Artfolio website, showcasing his artwork and creative projects." />
         <meta name="keywords" content="art, artist, portfolio, creative, projects" />
         <meta name="author" content="Txabi Guerrero" />
-        <meta property="og:image" content="./opengraph-image.png" />
+        <meta property="og:image" content="<generated>" />
+        <meta property="og:image:type" content="<generated>" />
+        <meta property="og:image:width" content="<generated>" />
+        <meta property="og:image:height" content="<generated>" />
       </head>
       <body>
         <NavbarContextProvider>
